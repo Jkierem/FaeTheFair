@@ -24,7 +24,8 @@ public:
   float magnitude();
   T dot( Vector3D<T> b );
   Vector3D<T> cross( Vector3D<T> b );
-  void normalize();
+  Vector3D<T> normalize();
+  Vector3D<T> add( Vector3D<T> b);
 };
 
 typedef Vector3D<float> Vector;
