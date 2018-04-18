@@ -51,9 +51,12 @@ Vector3D<T> Vector3D<T>::cross( Vector3D<T> b ){
 }
 
 template <class T>
-void Vector3D<T>::normalize(){
+Vector3D<T> Vector3D<T>::normalize(){
   float mag = this->magnitude();
-  this->x /= mag;
-  this->y /= mag;
-  this->z /= mag;
+  return Vector3D<T>(this->x/mag , this->y/mag, this->z/mag);
+}
+
+template <class T>
+Vector3D<T> Vector3D<T>::add( Vector3D<T> b){
+  return Vector3D<T>( this->x + b.getX() , this->y + b.getY() , this->z + b.getZ() );
 }
