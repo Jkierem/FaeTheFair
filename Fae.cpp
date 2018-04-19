@@ -38,7 +38,9 @@ void FaeTheFair::readScript( std::string filePath ){
     values = this->fixPreScript(values);
     this->setScript(this->processPreScript(values));
   }else{
-    throw std::logic_error("Input file has different number of positions for each point. \n Check console for Debugging");
+    std::string msg("Input file has different number of positions for");
+    msg += " each point.\n Check console for Debugging";
+    throw std::logic_error(msg);
   }
 }
 
@@ -186,6 +188,61 @@ MovementScript FaeTheFair::processPreScript( MovementScript preScript ){
   return script;
 }
 
+Vector FaeTheFair::getPoint( Tag t ){
+  switch (t) {
+    case Tag::SACR : return this->sacr;
+    case Tag::LASI : return this->lasi;
+    case Tag::LTHI : return this->lthi;
+    case Tag::LKNE : return this->lkne;
+    case Tag::LTIB : return this->ltib;
+    case Tag::LANK : return this->lank;
+    case Tag::LTOE : return this->ltoe;
+    case Tag::RASI : return this->rasi;
+    case Tag::RTHI : return this->rthi;
+    case Tag::RKNE : return this->rkne;
+    case Tag::RTIB : return this->rtib;
+    case Tag::RANK : return this->rank;
+    case Tag::RTOE : return this->rtoe;
+    default : throw std::logic_error("Tag does not exist.");
+  }
+}
+
+MovementScript FaeTheFair::fixPreScript( MovementScript preScript ){
+  MovementScript fixed;
+  for (int i = 0; i < preScript.size(); i++) {
+    Position current = preScript[i];
+    Position np;
+    for (int j = 0; j < current.size(); j++) {
+      Vector cv = current[j];
+      if( cv.magnitude() == 0 ){
+        cv = np[j-1];
+      }
+      np.push_back(cv);
+    }
+    fixed.push_back(np);
+  }
+  return fixed;
+}
+
+void FaeTheFair::checkFixedPreScript( MovementScript preScript ){
+  bool fixed = true;
+  for (int i = 0; i < preScript.size(); i++) {
+    Position current = preScript[i];
+    int ceros = 0;
+    for (int j = 0; j < current.size() ; j++) {
+      if( current[j].magnitude() == 0 ){
+        ceros++;
+      }
+    }
+    if( ceros ){
+      fixed = false;
+    }
+    std::cout << this->getPosFromIndex(i) << ": " << ceros << std::endl;
+  }
+  std::string sf = fixed? "TRUE" : "FALSE";
+  std::cout << "Fixed: " << sf << std::endl;
+}
+
 void FaeTheFair::printScript(){
   for ( int  i = 0 ; i < this->script.size() ; i++ ){
     std::cout << "Posicion " << i << std::endl;
@@ -214,31 +271,6 @@ std::string FaeTheFair::getPosFromIndex(int i){
     case Tag::RTOE : return "RTOE";
     default : return "UNKOWN";
   }
-}
-
-Vector FaeTheFair::getPoint( Tag t ){
-  switch (t) {
-    case Tag::SACR : return this->sacr;
-    case Tag::LASI : return this->lasi;
-    case Tag::LTHI : return this->lthi;
-    case Tag::LKNE : return this->lkne;
-    case Tag::LTIB : return this->ltib;
-    case Tag::LANK : return this->lank;
-    case Tag::LTOE : return this->ltoe;
-    case Tag::RASI : return this->rasi;
-    case Tag::RTHI : return this->rthi;
-    case Tag::RKNE : return this->rkne;
-    case Tag::RTIB : return this->rtib;
-    case Tag::RANK : return this->rank;
-    case Tag::RTOE : return this->rtoe;
-    default : throw std::logic_error("Tag does not exist.");
-  }
-}
-
-MovementScript FaeTheFair::fixPreScript( MovementScript preScript ){
-  //This funk shall remove the (0,0,0) from the script
-  // This implies a drastic change in magnitude of the Vector
-  return preScript;
 }
 
 //------------- End Fae      -----------//

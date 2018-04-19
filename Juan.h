@@ -9,7 +9,7 @@
 #include "Vector3D.h"
 
 namespace Juan {
-
+  const float RADIUS = 10;
   //mascaras
   void translate( Vector t );
 

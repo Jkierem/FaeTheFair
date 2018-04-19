@@ -39,14 +39,15 @@ private:
 
   MovementScript script;
   int currentFrame;
-  bool moving; //Para futuro control de pausa y reanudación del movimiento
+  bool moving; //Para futuro control de pausa 
+               //y reanudación del movimiento
 
 public:
   FaeTheFair( );
   virtual ~FaeTheFair ();
 
-  void setScript( MovementScript script );
   void readScript( std::string filePath );
+  void setScript( MovementScript script );
   void move( Position nextPos );
   void nextFrame();
   void drawUpperBody();
@@ -58,11 +59,10 @@ public:
   bool checkPreScript( MovementScript preScript );
   MovementScript processPreScript( MovementScript preScript );
   Vector getPoint( Tag name );
-
   MovementScript fixPreScript( MovementScript preScript );
 
-
   // Debugging funks
+  void checkFixedPreScript( MovementScript preScript );
   void printScript();
   std::string getPosFromIndex(int i);
 };
