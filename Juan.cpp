@@ -64,11 +64,10 @@ void Juan::drawSolidCylinder( float srad , float erad , Vector start , Vector en
   Vector dir = end.vectorSub(start);
   Vector z(0,0,1);
   Vector rAxis = z.cross(dir);
-  float height = dir.magnitude();//sqrt( dir.dot(dir) );
-  float angle = 180.0 / 3.14159 * atan( rAxis.magnitude()/z.dot(dir) ) ;//acos(z.dot(dir) / l);
+  float height = dir.magnitude();
+  float angle = 180.0 / 3.14159 * atan( rAxis.magnitude()/z.dot(dir) ) ;
 
   if( rAxis.magnitude() == 0.0 && angle == 0){
-    //std::cout << "["<<rAxis.getX()<<","<<rAxis.getY()<<","<<rAxis.getZ()<<"]\n";
     Vector nDir = dir.normalize();
     Vector addDirZ = nDir.add(z);
     if( addDirZ.magnitude() == 0 ){
@@ -87,11 +86,15 @@ void Juan::drawSolidCylinder( float srad , float erad , Vector start , Vector en
   gluCylinder (c, srad, erad, height, 10, 10);
 
   if( closed ){
-    gluQuadricOrientation(c,GLU_OUTSIDE);
-    gluDisk( c, 0.0, srad, 10, 10);
+    if( srad != 0 ){
+      gluQuadricOrientation(c,GLU_OUTSIDE);
+      gluDisk( c, 0.0, srad, 10, 10);
+    }
     Juan::translate( Vector(0,0,height) );
-    gluQuadricOrientation(c,GLU_INSIDE);
-    gluDisk( c, 0.0, erad, 10, 10);
+    if( erad != 0 ){
+      gluQuadricOrientation(c,GLU_INSIDE);
+      gluDisk( c, 0.0, erad, 10, 10);
+    }
   }
 
   glPopMatrix();
@@ -116,13 +119,13 @@ void Juan::drawSolidIcosahedron( Vector scale , Vector translation , Vector rota
 void Juan::drawSegment( Vector start , Vector end , bool inclusive ){
 
   glColor3f( 0.5 , 0.5 , 0.5 );
-  Juan::drawSolidCylinder( 1 , start , end , false );
+  Juan::drawSolidCylinder( Juan::RADIUS , start , end , false );
 
   glColor3f(0.3,0.3,0.7);
-  Juan::drawSolidSphere( 1 , start );
+  Juan::drawSolidSphere( Juan::RADIUS , start );
 
   if( inclusive ){
-    Juan::drawSolidSphere( 1 , end );
+    Juan::drawSolidSphere( Juan::RADIUS , end );
   }
 
 }
