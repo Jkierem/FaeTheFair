@@ -1,5 +1,9 @@
 #include "Fae.h"
 #include <stdexcept>
+#include <fstream> //ifstream
+#include <sstream> //stringstream
+#include <exception> //exception
+#include <iostream> //For debugging
 
 //------------- Fae the Fair ------------//
 
@@ -11,30 +15,31 @@ FaeTheFair::FaeTheFair( ){
 FaeTheFair::~FaeTheFair (){}
 
 void FaeTheFair::readScript( std::string filePath ){
-  //Placeholder code for later
-  //This function shall read the input file later
-  //For now it will give us a Placeholder array of positions with one Position
   MovementScript script;
   Position p;
 
-  p.push_back( Vector(0,20,20) ); //sacr
+  MovementScript values( 13 , Position() );
+  int current = -1;
 
-  p.push_back( Vector(-5,19,20) ); //lasi
-  p.push_back( Vector(-5,14,20) ); //lthi
-  p.push_back( Vector(-5,10,20) ); //lkne
-  p.push_back( Vector(-5,10,15) ); //ltib
-  p.push_back( Vector(-5,10,11) ); //lank
-  p.push_back( Vector(-5,7,11)  ); //ltoe
-
-  p.push_back( Vector(5,19,20) ); //rasi
-  p.push_back( Vector(5,16,22) ); //rthi
-  p.push_back( Vector(5,12,25) ); //rkne
-  p.push_back( Vector(5,8,25)  ); //rtib
-  p.push_back( Vector(5,3,25)  ); //rank
-  p.push_back( Vector(5,3,28)  ); //rtoe
-
-  script.push_back(p);
-  this->setScript(script);
+  std::ifstream infile(filePath);
+  std::string line;
+  while( std::getline(infile , line) && current < 13 ){
+    if( std::isdigit(line[0]) || line[0] == '-' ){
+      std::stringstream ss(line);
+      float x,y,z;
+      ss >> x >> y >> z;
+      Vector v = Vector(x,y,z);
+      values[current].push_back(v);
+    }else{
+      current++;
+    }
+  }
+  if( this->checkPreScript(values) ){
+    values = this->fixPreScript(values);
+    this->setScript(this->processPreScript(values));
+  }else{
+    throw std::logic_error("Input file has different number of positions for each point. \n Check console for Debugging");
+  }
 }
 
 void FaeTheFair::setScript( MovementScript script ){
@@ -143,6 +148,97 @@ void FaeTheFair::restart(){
 
 bool FaeTheFair::hasEnded(){
   return !(this->currentFrame < this->script.size());
+}
+
+bool FaeTheFair::checkPreScript( MovementScript preScript ){
+  std::vector<int> errors;
+  int size;
+  if( preScript.size() != 13 ){
+    return false;
+  }else{
+    size = preScript[0].size();
+    for (int i = 1; i < 13; i++) {
+      if( preScript[i].size() != size ){
+        errors.push_back(i);
+      }
+    }
+  }
+  if( errors.size() > 0 ){
+    std::cout << "Expected size: " << size << std::endl;
+    for (size_t i = 0; i < preScript.size(); i++) {
+      std::cout << this->getPosFromIndex(i) << ": " << preScript[i].size() << std::endl;
+    }
+    return false;
+  }
+  return true;
+}
+
+MovementScript FaeTheFair::processPreScript( MovementScript preScript ){
+  MovementScript script;
+  int pointsInTime = preScript[0].size();
+  for( int i = 0 ; i < pointsInTime ; i++){
+    Position aux;
+    for( int j = 0 ; j < 13 ; j++ ){
+      aux.push_back( preScript[j][i] );
+    }
+    script.push_back( aux );
+  }
+  return script;
+}
+
+void FaeTheFair::printScript(){
+  for ( int  i = 0 ; i < this->script.size() ; i++ ){
+    std::cout << "Posicion " << i << std::endl;
+    for( int j = 0 ; j < this->script[i].size() ; j++ ){
+      std::cout << "\t" << this->getPosFromIndex(j) << ":";
+      std::cout << this->script[i][j].toString() << std::endl;
+    }
+    std::cout << std::endl;
+  }
+}
+
+std::string FaeTheFair::getPosFromIndex(int i){
+  switch (static_cast<Tag>(i)) {
+    case Tag::SACR : return "SACR";
+    case Tag::LASI : return "LASI";
+    case Tag::LTHI : return "LTHI";
+    case Tag::LKNE : return "LKNE";
+    case Tag::LTIB : return "LTIB";
+    case Tag::LANK : return "LANK";
+    case Tag::LTOE : return "LTOE";
+    case Tag::RASI : return "RASI";
+    case Tag::RTHI : return "RTHI";
+    case Tag::RKNE : return "RKNE";
+    case Tag::RTIB : return "RTIB";
+    case Tag::RANK : return "RANK";
+    case Tag::RTOE : return "RTOE";
+    default : return "UNKOWN";
+  }
+}
+
+Vector FaeTheFair::getPoint( Tag t ){
+  switch (t) {
+    case Tag::SACR : return this->sacr;
+    case Tag::LASI : return this->lasi;
+    case Tag::LTHI : return this->lthi;
+    case Tag::LKNE : return this->lkne;
+    case Tag::LTIB : return this->ltib;
+    case Tag::LANK : return this->lank;
+    case Tag::LTOE : return this->ltoe;
+    case Tag::RASI : return this->rasi;
+    case Tag::RTHI : return this->rthi;
+    case Tag::RKNE : return this->rkne;
+    case Tag::RTIB : return this->rtib;
+    case Tag::RANK : return this->rank;
+    case Tag::RTOE : return this->rtoe;
+    default : throw std::logic_error("Tag does not exist.");
+  }
+}
+
+MovementScript FaeTheFair::fixPreScript( MovementScript preScript ){
+  //This funk shall remove the (0,0,0) from the script
+  // This implies a drastic change in magnitude of the Vector
+  return preScript;
 }
 
 //------------- End Fae      -----------//

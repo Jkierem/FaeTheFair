@@ -1,6 +1,11 @@
 #ifndef __VECTOR3D__H__
 #define __VECTOR3D__H__
 
+#include <string>
+#include <cmath>
+#include <sstream>
+#include <vector>
+
 template <class T>
 class Vector3D {
 protected:
@@ -26,6 +31,7 @@ public:
   Vector3D<T> cross( Vector3D<T> b );
   Vector3D<T> normalize();
   Vector3D<T> add( Vector3D<T> b);
+  std::string toString();
 };
 
 typedef Vector3D<float> Vector;

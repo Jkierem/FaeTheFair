@@ -2,6 +2,8 @@
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 
+#include <exception>
+
 #include "Juan.h"
 #include "Vector3D.h"
 #include "Fae.h"
@@ -10,7 +12,7 @@ FaeTheFair* s = new FaeTheFair();
 
 int timeout = 1000/30;
 
-std::string filePath="Here shall be the inputFile path!";
+std::string filePath="./inputFile.in";
 
 float x = -80;
 float z = -60;
@@ -60,7 +62,8 @@ void display(){
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   Vector eye(x,90,z);
-  Vector center(0,20,20);
+  //Vector center(0,20,20);
+  Vector center = s->getPoint(Tag::SACR);
   Vector up( 0.0 , 1.0 , 0.0 );
   Juan::setCamera( eye , center , up );
   Juan::drawStage();
