@@ -1,9 +1,4 @@
 #include "Fae.h"
-#include <stdexcept>
-#include <fstream> //ifstream
-#include <sstream> //stringstream
-#include <exception> //exception
-#include <iostream> //For debugging
 
 //------------- Fae the Fair ------------//
 

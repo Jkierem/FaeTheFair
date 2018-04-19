@@ -1,6 +1,4 @@
 #include "Juan.h"
-#include <iostream>
-#include <cmath>
 
 //--------- Utility funks --------------//
 void Juan::translate( Vector t ){

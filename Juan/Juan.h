@@ -6,7 +6,10 @@
 #include <GL/gl.h>
 #include <vector>
 
-#include "Vector3D.h"
+#include <iostream>
+#include <cmath>
+
+#include "../Vector3D/Vector3D.h"
 
 namespace Juan {
   const float RADIUS = 10;

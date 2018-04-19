@@ -4,15 +4,15 @@
 
 #include <exception>
 
-#include "Juan.h"
-#include "Vector3D.h"
-#include "Fae.h"
+#include "./Juan/Juan.h"
+#include "./Vector3D/Vector3D.h"
+#include "./Fae/Fae.h"
 
 FaeTheFair* s = new FaeTheFair();
 
 int timeout = 1000/30;
 
-std::string filePath="./inputFile.in";
+std::string filePath="./res/inputFile.in";
 
 float x = -80;
 float z = -60;
@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH );
   glutInitWindowPosition(100, 100);
   glutInitWindowSize(600,600);
-  glutCreateWindow("Fae The Fair");
+  glutCreateWindow("Gait Lab Sim");
 
   init();
 

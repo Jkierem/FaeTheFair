@@ -3,8 +3,14 @@
 
 #include <vector>
 #include <string>
-#include "Vector3D.h"
-#include "Juan.h"
+
+#include <fstream> //ifstream
+#include <sstream> //stringstream
+#include <exception> //exception
+#include <iostream> //For Debugging
+
+#include "../Vector3D/Vector3D.h"
+#include "../Juan/Juan.h"
 
 typedef std::vector<Vector> Position;
 typedef std::vector<Position> MovementScript;
@@ -39,7 +45,7 @@ private:
 
   MovementScript script;
   int currentFrame;
-  bool moving; //Para futuro control de pausa 
+  bool moving; //Para futuro control de pausa
                //y reanudación del movimiento
 
 public:
