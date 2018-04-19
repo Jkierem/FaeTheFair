@@ -1,5 +1,3 @@
-#include <cmath>
-
 template <class T>
 Vector3D<T>::Vector3D(){}
 
@@ -59,4 +57,13 @@ Vector3D<T> Vector3D<T>::normalize(){
 template <class T>
 Vector3D<T> Vector3D<T>::add( Vector3D<T> b){
   return Vector3D<T>( this->x + b.getX() , this->y + b.getY() , this->z + b.getZ() );
+}
+
+template <class T>
+std::string Vector3D<T>::toString(){
+  std::stringstream ss;
+  ss << this->x << " " << this->y << " " << this->z;
+  std::string xs, ys, zs;
+  ss >> xs >> ys >> zs;
+  return "[" + xs + " , " + ys + " , " + zs + "]";
 }

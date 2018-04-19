@@ -3,11 +3,23 @@
 
 #include <vector>
 #include <string>
-#include "Vector3D.h"
-#include "Juan.h"
+
+#include <fstream> //ifstream
+#include <sstream> //stringstream
+#include <exception> //exception
+#include <iostream> //For Debugging
+
+#include "../Vector3D/Vector3D.h"
+#include "../Juan/Juan.h"
 
 typedef std::vector<Vector> Position;
 typedef std::vector<Position> MovementScript;
+
+enum class Tag : int {
+  SACR=0 ,
+  LASI=1 , LTHI=2 , LKNE=3 , LTIB=4  , LANK=5  , LTOE=6 ,
+  RASI=7 , RTHI=8 , RKNE=9 , RTIB=10 , RANK=11 , RTOE=12
+};
 
 class FaeTheFair {
 private:
@@ -33,14 +45,15 @@ private:
 
   MovementScript script;
   int currentFrame;
-  bool moving; //Para futuro control de pausa y reanudación del movimiento
+  bool moving; //Para futuro control de pausa
+               //y reanudación del movimiento
 
 public:
   FaeTheFair( );
   virtual ~FaeTheFair ();
 
-  void setScript( MovementScript script );
   void readScript( std::string filePath );
+  void setScript( MovementScript script );
   void move( Position nextPos );
   void nextFrame();
   void drawUpperBody();
@@ -49,6 +62,15 @@ public:
   bool toggleMovement();
   void restart();
   bool hasEnded();
+  bool checkPreScript( MovementScript preScript );
+  MovementScript processPreScript( MovementScript preScript );
+  Vector getPoint( Tag name );
+  MovementScript fixPreScript( MovementScript preScript );
+
+  // Debugging funks
+  void checkFixedPreScript( MovementScript preScript );
+  void printScript();
+  std::string getPosFromIndex(int i);
 };
 
 

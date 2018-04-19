@@ -1,1 +1,1 @@
-g++ -o FaeTheFair *.cpp Vector3D.h -lGL -lGLU -lglut
+g++ -o GaitLab *.cpp */*.cpp ./Vector3D/Vector3D.h -lGL -lGLU -lglut
