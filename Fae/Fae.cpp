@@ -46,6 +46,7 @@ void FaeTheFair::readScript( std::string filePath ){
 }
 
 void FaeTheFair::setScript( MovementScript script ){
+  this->currentFrame = 0;
   this->script = script;
   this->move( script[this->currentFrame] );
 }

@@ -1,6 +1,10 @@
 #ifndef __INPUT__H__
 #define __INPUT__H__
 
+#include <string>
+#include <iostream>
+#include <stdlib.h>
+
 #include "../Fae/Fae.h"
 
 /*
@@ -16,6 +20,8 @@ public:
   virtual ~InputHandler ();
 
   void onKeyPress( unsigned char key , int x , int y );
+  std::string openFileNavigator();
+  std::string exec(const char* cmd);
 };
 
 typedef InputHandler Input;
