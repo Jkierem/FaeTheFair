@@ -103,7 +103,7 @@ void Juan::drawSolidCone( float radius , Vector start , Vector end , bool closed
   Juan::drawSolidCylinder( radius , 0 , start , end , closed );
 }
 
-void Juan::drawSolidIcosahedron( Vector scale , Vector translation , Vector rotation){
+void Juan::drawSolidOctahedron( Vector scale , Vector translation , Vector rotation){
   glPushMatrix();
 
   Juan::translate( translation );
