@@ -15,7 +15,7 @@
 - [X] Rework Folder Structure
 - [X] Read Positions from input file
 - [X] Fix (0,0,0) Positions in input file
-- [ ] Implement rotating octahedron
+- [X] Implement rotating octahedron
 - [ ] Adjust perspective to be able to fit entire figure
 - [ ] Adjust Camera to show figure correctly
 - [ ] Adjust Body and Legs scale
