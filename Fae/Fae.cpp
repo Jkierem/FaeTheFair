@@ -46,6 +46,7 @@ void FaeTheFair::readScript( std::string filePath ){
 }
 
 void FaeTheFair::setScript( MovementScript script ){
+  this->currentFrame = 0;
   this->script = script;
   this->move( script[this->currentFrame] );
 }
@@ -74,8 +75,8 @@ void FaeTheFair::move( Position nextPos ){
 }
 
 void FaeTheFair::nextFrame(){
+  this->currentFrame++;
   if( this->currentFrame < this->script.size() ){
-    this->currentFrame++;
     this->move( this->script[this->currentFrame] );
   }else{
     this->moving = false;
@@ -148,6 +149,7 @@ bool FaeTheFair::toggleMovement(){
 
 void FaeTheFair::restart(){
   this->currentFrame = 0;
+  this->move( this->script[this->currentFrame] );
 }
 
 bool FaeTheFair::hasEnded(){
