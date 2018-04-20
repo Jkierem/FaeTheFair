@@ -23,3 +23,11 @@
 - [ ] Remove global variables from main.cpp
 - [ ] Implement union with OpenCSG to use in segments
 - [ ] Implement right click menu.
+
+## User Interaction: 
+
+   As of now the control of the program is limited to:
+-  **Space Bar**: start, stop and resume the sim.
+-  **R Key**: restart sim.
+-  **L Key**: load a sim file using zenity.
+
