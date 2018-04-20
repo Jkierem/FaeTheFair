@@ -32,7 +32,7 @@ namespace Juan {
   void drawSolidCylinder( float radius , Vector start , Vector end , bool closed=true);
   void drawSolidCylinder( float srad , float erad , Vector start , Vector end , bool closed=true);
   void drawSolidCone( float radius , Vector start , Vector end , bool closed=true );
-  void drawSolidIcosahedron( Vector scale , Vector translation , Vector rotation);
+  void drawSolidOctahedron( Vector scale , Vector translation , Vector rotation);
 
   void drawSegment( Vector start , Vector end , bool inclusive=false );
   void drawStage();

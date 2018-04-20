@@ -2,12 +2,18 @@
 
 //------------- Fae the Fair ------------//
 
-FaeTheFair::FaeTheFair( ){
+FaeTheFair::FaeTheFair( float ratio ){
   this->currentFrame = 0;
   this->moving = false;
+  this->angle = 0.0f;
+  this->ratio = ratio;
 }
 
 FaeTheFair::~FaeTheFair (){}
+
+void FaeTheFair::setRatio( float ratio ){
+  this->ratio = ratio;
+}
 
 void FaeTheFair::readScript( std::string filePath ){
   MovementScript script;
@@ -94,8 +100,9 @@ void FaeTheFair::drawUpperBody(){
   glColor3f(0.0,1.0,0.0);
   Vector scale(1,2,1);
   neckish.setY( neckish.getY() + 6);
-  Vector rot(0,0,0);
-  Juan::drawSolidIcosahedron(scale,neckish,rot);
+  Vector rot(0,this->angle,0);
+  this->angle += this->ratio;
+  Juan::drawSolidOctahedron(scale,neckish,rot);
 
   Vector lshoulder( cTop.getX() + 4 , cTop.getY() , cTop.getZ());
   Vector lelbow( lshoulder.getX() + 2 , lshoulder.getY() - 5 , lshoulder.getZ() );
