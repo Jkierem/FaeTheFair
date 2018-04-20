@@ -19,6 +19,7 @@
 - [ ] Adjust perspective to be able to fit entire figure
 - [ ] Adjust Camera to show figure correctly
 - [ ] Adjust Body and Legs scale
-- [ ] Implement User interaction
+- [X] Implement User interaction
 - [ ] Remove global variables from main.cpp
 - [ ] Implement union with OpenCSG to use in segments
+- [ ] Implement right click menu.
