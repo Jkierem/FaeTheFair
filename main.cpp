@@ -7,8 +7,10 @@
 #include "./Juan/Juan.h"
 #include "./Vector3D/Vector3D.h"
 #include "./Fae/Fae.h"
+#include "./InputHandler/InputHandler.h"
 
-FaeTheFair* s = new FaeTheFair();
+FaeTheFair *s = new FaeTheFair();
+Input *input = new Input(s);
 
 int timeout = 1000/30;
 
@@ -81,6 +83,10 @@ void reshape( int width , int height ){
   glMatrixMode(GL_MODELVIEW);
 }
 
+void keyboard( unsigned char key , int x , int y ){
+  input->onKeyPress(key,x,y);
+}
+
 int main(int argc, char *argv[]) {
 
   //Initial display and window config
@@ -94,6 +100,7 @@ int main(int argc, char *argv[]) {
 
   glutDisplayFunc(display);
   glutReshapeFunc(reshape);
+  glutKeyboardFunc(keyboard);
   glutMainLoop();
 
 
