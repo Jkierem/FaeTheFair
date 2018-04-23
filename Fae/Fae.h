@@ -48,9 +48,15 @@ private:
   bool moving; //Para futuro control de pausa
                //y reanudación del movimiento
 
+  float angle;
+  float ratio;
+  bool loop;
+
 public:
-  FaeTheFair( );
+  FaeTheFair( float ratio=1.0f );
   virtual ~FaeTheFair ();
+
+  void setRatio( float ratio );
 
   void readScript( std::string filePath );
   void setScript( MovementScript script );
@@ -71,6 +77,7 @@ public:
   void checkFixedPreScript( MovementScript preScript );
   void printScript();
   std::string getPosFromIndex(int i);
+  void toggleLoop();
 };
 
 

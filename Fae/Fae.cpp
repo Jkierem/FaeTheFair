@@ -2,12 +2,19 @@
 
 //------------- Fae the Fair ------------//
 
-FaeTheFair::FaeTheFair( ){
+FaeTheFair::FaeTheFair( float ratio ){
   this->currentFrame = 0;
   this->moving = false;
+  this->angle = 0.0f;
+  this->ratio = ratio;
+  this->loop = false;
 }
 
 FaeTheFair::~FaeTheFair (){}
+
+void FaeTheFair::setRatio( float ratio ){
+  this->ratio = ratio;
+}
 
 void FaeTheFair::readScript( std::string filePath ){
   MovementScript script;
@@ -40,6 +47,7 @@ void FaeTheFair::readScript( std::string filePath ){
 }
 
 void FaeTheFair::setScript( MovementScript script ){
+  this->currentFrame = 0;
   this->script = script;
   this->move( script[this->currentFrame] );
 }
@@ -68,11 +76,15 @@ void FaeTheFair::move( Position nextPos ){
 }
 
 void FaeTheFair::nextFrame(){
+  this->currentFrame++;
   if( this->currentFrame < this->script.size() ){
-    this->currentFrame++;
     this->move( this->script[this->currentFrame] );
   }else{
-    this->moving = false;
+    if( this->loop ){
+      this->currentFrame = -1;
+    }else{
+      this->moving = false;
+    }
   }
 }
 
@@ -94,8 +106,9 @@ void FaeTheFair::drawUpperBody(){
   glColor3f(0.0,1.0,0.0);
   Vector scale(1,2,1);
   neckish.setY( neckish.getY() + 6);
-  Vector rot(0,0,0);
-  Juan::drawSolidIcosahedron(scale,neckish,rot);
+  Vector rot(0,this->angle,0);
+  this->angle += this->ratio;
+  Juan::drawSolidOctahedron(scale,neckish,rot);
 
   Vector lshoulder( cTop.getX() + 4 , cTop.getY() , cTop.getZ());
   Vector lelbow( lshoulder.getX() + 2 , lshoulder.getY() - 5 , lshoulder.getZ() );
@@ -141,6 +154,7 @@ bool FaeTheFair::toggleMovement(){
 
 void FaeTheFair::restart(){
   this->currentFrame = 0;
+  this->move( this->script[this->currentFrame] );
 }
 
 bool FaeTheFair::hasEnded(){
@@ -266,6 +280,10 @@ std::string FaeTheFair::getPosFromIndex(int i){
     case Tag::RTOE : return "RTOE";
     default : return "UNKOWN";
   }
+}
+
+void FaeTheFair::toggleLoop(){
+  this->loop = !this->loop;
 }
 
 //------------- End Fae      -----------//

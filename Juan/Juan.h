@@ -24,7 +24,7 @@ namespace Juan {
   void rotateY( float angle );//rotation around Y
   void rotateZ( float angle );//rotation around Z
 
-  void setCamera( Vector eye , Vector center , Vector up );
+  void setCamera( Vector eye , Vector center , Vector up , bool identity=true);
 
   //Figures
   void drawLine( Vector start , Vector end );
@@ -32,10 +32,13 @@ namespace Juan {
   void drawSolidCylinder( float radius , Vector start , Vector end , bool closed=true);
   void drawSolidCylinder( float srad , float erad , Vector start , Vector end , bool closed=true);
   void drawSolidCone( float radius , Vector start , Vector end , bool closed=true );
-  void drawSolidIcosahedron( Vector scale , Vector translation , Vector rotation);
+  void drawSolidOctahedron( Vector scale , Vector translation , Vector rotation);
 
   void drawSegment( Vector start , Vector end , bool inclusive=false );
   void drawStage();
+
+  float toRadians(float degrees);
+  float toDegrees(float radians);
 
 } /* Juan */
 

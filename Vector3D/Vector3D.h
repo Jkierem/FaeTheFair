@@ -31,7 +31,16 @@ public:
   Vector3D<T> cross( Vector3D<T> b );
   Vector3D<T> normalize();
   Vector3D<T> add( Vector3D<T> b);
+  Vector3D<T> mult(float n);
+  Vector3D<T> mult(Vector3D<T> b);
+  Vector3D<T> rotate( Vector3D<T> rot );
+  Vector3D<T> rotateX(float angle);
+  Vector3D<T> rotateY(float angle);
+  Vector3D<T> rotateZ(float angle);
   std::string toString();
+
+  static float toRadians( float degrees );
+  static float toDegrees( float radians );
 };
 
 typedef Vector3D<float> Vector;
