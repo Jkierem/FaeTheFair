@@ -45,12 +45,12 @@ private:
 
   MovementScript script;
   int currentFrame;
-  bool moving; //Para futuro control de pausa
-               //y reanudación del movimiento
-
+  bool moving;
   float angle;
   float ratio;
   bool loop;
+  float frameRate;
+  int setting;
 
 public:
   FaeTheFair( float ratio=1.0f );
@@ -68,6 +68,7 @@ public:
   bool toggleMovement();
   void restart();
   bool hasEnded();
+  float getTimeout();
   bool checkPreScript( MovementScript preScript );
   MovementScript processPreScript( MovementScript preScript );
   Vector getPoint( Tag name );
@@ -78,6 +79,7 @@ public:
   void printScript();
   std::string getPosFromIndex(int i);
   void toggleLoop();
+  void cycleFrameRate();
 };
 
 

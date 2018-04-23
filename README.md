@@ -42,4 +42,5 @@
 -  **O key**: save current rotation as default rotation.
 -  **P Key**: save current panning as default panning.
 -  **K Key**: toggle simulation loop.
+-  **F Key**: cycle frame rates. They are 15, 30 and 60 fps. The default is 30 fps.
 -  **ESC Key**: exit program.

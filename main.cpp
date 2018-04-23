@@ -12,22 +12,14 @@ FaeTheFair *sim = new FaeTheFair();
 Camera *camera = new Camera(Vector(-90,0,0));
 Input *input = new Input(sim,camera);
 
-int timeout = 1000/30;
-
 std::string filePath="./res/inputFile.in";
-
-float x = -80;
-float z = -60;
-float dz = 1.0f;
-float dx = 1.0f;
-bool zMove = true;
 
 void Timer( int i ){
   if( sim->isMoving() ){
     sim->nextFrame();
   }
   glutPostRedisplay();
-  glutTimerFunc( timeout, Timer, 0);
+  glutTimerFunc( sim->getTimeout(), Timer, 0);
 }
 
 void init(){

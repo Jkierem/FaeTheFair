@@ -38,6 +38,9 @@ bool InputHandler::onKeyPress( unsigned char key , int x , int y ){
     case ' ':
       this->fae->toggleMovement();
     break;
+    case 'f': case 'F':
+      this->fae->cycleFrameRate();
+    break;
     case 'k': case 'K':
       this->fae->toggleLoop();
     break;

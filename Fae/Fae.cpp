@@ -8,6 +8,8 @@ FaeTheFair::FaeTheFair( float ratio ){
   this->angle = 0.0f;
   this->ratio = ratio;
   this->loop = false;
+  this->frameRate = 1000/30;
+  this->setting = 1;
 }
 
 FaeTheFair::~FaeTheFair (){}
@@ -161,6 +163,10 @@ bool FaeTheFair::hasEnded(){
   return !(this->currentFrame < this->script.size());
 }
 
+float FaeTheFair::getTimeout(){
+  return this->frameRate;
+}
+
 bool FaeTheFair::checkPreScript( MovementScript preScript ){
   std::vector<int> errors;
   int size;
@@ -284,6 +290,14 @@ std::string FaeTheFair::getPosFromIndex(int i){
 
 void FaeTheFair::toggleLoop(){
   this->loop = !this->loop;
+}
+
+void FaeTheFair::cycleFrameRate(){
+  this->setting++;
+  this->setting = this->setting % 3;
+  int p = 1;
+  for( int i = 0 ; i < this->setting ; i++){ p *= 2; }
+  this->frameRate = 1000/(15 * p);
 }
 
 //------------- End Fae      -----------//
