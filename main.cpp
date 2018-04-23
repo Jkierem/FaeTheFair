@@ -2,8 +2,6 @@
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 
-#include <exception>
-
 #include "./Juan/Juan.h"
 #include "./Vector3D/Vector3D.h"
 #include "./Fae/Fae.h"
@@ -11,7 +9,7 @@
 #include "./InputHandler/InputHandler.h"
 
 FaeTheFair *sim = new FaeTheFair();
-CameraHandler *camera = new CameraHandler(Vector(-90,0,0));
+Camera *camera = new Camera(Vector(-90,0,0));
 Input *input = new Input(sim,camera);
 
 int timeout = 1000/30;
@@ -45,8 +43,7 @@ void display(){
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   Vector sacr = sim->getPoint(Tag::SACR);
-  Vector eye = sacr.add(Vector(0,90,-4000));
-  camera->setPos(eye);
+  camera->setRelativeEye(Vector(0,0,-3000));
   camera->lookAt(sacr);
   camera->update();
   //Juan::drawStage();
@@ -60,12 +57,18 @@ void reshape( int width , int height ){
   glViewport(0, 0, width, height);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(60.0f, (GLfloat)width/(GLfloat)height, 1.0f, 3000.0f);
+  gluPerspective(60.0f, (GLfloat)width/(GLfloat)height, 1.0f, 5000.0f);
   glMatrixMode(GL_MODELVIEW);
 }
 
 void keyboard( unsigned char key , int x , int y ){
-  input->onKeyPress(key,x,y);
+  if( !input->onKeyPress(key,x,y) ){
+    exit(0);
+  }
+}
+
+void keyboardSpc( int key , int x , int y ){
+  input->onSpecialKeyPress(key,x,y);
 }
 
 int main(int argc, char *argv[]) {
@@ -82,6 +85,7 @@ int main(int argc, char *argv[]) {
   glutDisplayFunc(display);
   glutReshapeFunc(reshape);
   glutKeyboardFunc(keyboard);
+  glutSpecialFunc(keyboardSpc);
   glutMainLoop();
 
 

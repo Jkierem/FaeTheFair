@@ -21,7 +21,8 @@ public:
   InputHandler ( FaeTheFair *fae , CameraHandler *camera);
   virtual ~InputHandler ();
 
-  void onKeyPress( unsigned char key , int x , int y );
+  bool onKeyPress( unsigned char key , int x , int y );
+  void onSpecialKeyPress( int key , int x , int y );
   std::string openFileNavigator();
   std::string exec(const char* cmd);
 };

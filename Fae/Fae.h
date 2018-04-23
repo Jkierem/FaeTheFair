@@ -50,6 +50,7 @@ private:
 
   float angle;
   float ratio;
+  bool loop;
 
 public:
   FaeTheFair( float ratio=1.0f );
@@ -76,6 +77,7 @@ public:
   void checkFixedPreScript( MovementScript preScript );
   void printScript();
   std::string getPosFromIndex(int i);
+  void toggleLoop();
 };
 
 

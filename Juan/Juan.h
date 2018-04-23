@@ -37,6 +37,9 @@ namespace Juan {
   void drawSegment( Vector start , Vector end , bool inclusive=false );
   void drawStage();
 
+  float toRadians(float degrees);
+  float toDegrees(float radians);
+
 } /* Juan */
 
 

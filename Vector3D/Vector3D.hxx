@@ -60,6 +60,56 @@ Vector3D<T> Vector3D<T>::add( Vector3D<T> b){
 }
 
 template <class T>
+Vector3D<T> Vector3D<T>::mult(float n){
+  return Vector3D<T>( this->x * n , this->y * n , this->z * n );
+}
+
+template <class T>
+Vector3D<T> Vector3D<T>::mult(Vector3D<T> b){
+  return Vector3D<T>(this->x * b.getX() , this->y * b.getY() , this->z * b.getZ());
+}
+
+template <class T>
+Vector3D<T> Vector3D<T>::rotate( Vector3D<T> rot ){
+  Vector3D<T> rota;
+  rota = this->rotateX( rot.getX() );
+  rota =  rota.rotateY( rot.getY() );
+  rota =  rota.rotateZ( rot.getZ() );
+  return rota;
+}
+
+template <class T>
+Vector3D<T> Vector3D<T>::rotateX(float angle){
+  float radians = Vector3D<T>::toRadians(angle);
+  Vector3D<T> rot;
+  rot.setX( this->x );
+  rot.setY( this->y*cos(radians) - this->z*sin(radians) );
+  rot.setZ( this->y*sin(radians) + this->z*cos(radians) );
+  return rot;
+}
+
+template <class T>
+Vector3D<T> Vector3D<T>::rotateY(float angle){
+  float radians = Vector3D<T>::toRadians(angle);
+  Vector3D<T> rot;
+  rot.setX(  this->x*cos(radians) + this->z*sin(radians) );
+  rot.setY( this->y );
+  rot.setZ( -(this->x)*sin(radians) + this->z*cos(radians) );
+  return rot;
+}
+
+template <class T>
+Vector3D<T> Vector3D<T>::rotateZ(float angle){
+  float radians = Vector3D<T>::toRadians(angle);
+  Vector3D<T> rot;
+  rot.setX( x*cos(radians) - y*sin(radians) );
+  rot.setY( x*sin(radians) + y*cos(radians) );
+  rot.setZ( this->z );
+  return rot;
+}
+
+
+template <class T>
 std::string Vector3D<T>::toString(){
   std::stringstream ss;
   ss << this->x << " " << this->y << " " << this->z;
@@ -69,10 +119,11 @@ std::string Vector3D<T>::toString(){
 }
 
 template <class T>
-Vector3D<T> Vector3D<T>::mult(float n){
-  return Vector3D<T>( this->x * n , this->y * n , this->z * n );
+float Vector3D<T>::toRadians(float degrees){
+  return degrees * M_PI / 180;
 }
+
 template <class T>
-Vector3D<T> Vector3D<T>::mult(Vector3D<T> b){
-  return Vector3D<T>(this->x * b.getX() , this->y * b.getY() , this->z * b.getZ());
+float Vector3D<T>::toDegrees(float radians){
+  return radians * 180 / M_PI;
 }
