@@ -24,7 +24,7 @@ namespace Juan {
   void rotateY( float angle );//rotation around Y
   void rotateZ( float angle );//rotation around Z
 
-  void setCamera( Vector eye , Vector center , Vector up );
+  void setCamera( Vector eye , Vector center , Vector up , bool identity=true);
 
   //Figures
   void drawLine( Vector start , Vector end );

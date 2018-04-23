@@ -7,10 +7,12 @@
 #include "./Juan/Juan.h"
 #include "./Vector3D/Vector3D.h"
 #include "./Fae/Fae.h"
+#include "./CameraHandler/CameraHandler.h"
 #include "./InputHandler/InputHandler.h"
 
-FaeTheFair *s = new FaeTheFair();
-Input *input = new Input(s);
+FaeTheFair *sim = new FaeTheFair();
+CameraHandler *camera = new CameraHandler(Vector(-90,0,0));
+Input *input = new Input(sim,camera);
 
 int timeout = 1000/30;
 
@@ -23,28 +25,8 @@ float dx = 1.0f;
 bool zMove = true;
 
 void Timer( int i ){
-  if( zMove ){
-    z += dz;
-    if( dz > 0.0 && z >= 160 ){
-      dz = -dz;
-      zMove = !zMove;
-    }
-    else if( dz < 0.0 && z <= -60){
-      dz = -dz;
-      zMove = !zMove;
-    }
-  }else{
-    x += dx;
-    if( dx > 0.0 && x >= 80 ){
-      dx = -dx;
-      zMove = !zMove;
-    }else if( dx < 0.0 && x <= -80 ){
-      dx = -dx;
-      zMove = !zMove;
-    }
-  }
-  if( s->isMoving() ){
-    s->nextFrame();
+  if( sim->isMoving() ){
+    sim->nextFrame();
   }
   glutPostRedisplay();
   glutTimerFunc( timeout, Timer, 0);
@@ -52,8 +34,8 @@ void Timer( int i ){
 
 void init(){
 
-  s->readScript(filePath);
-
+  sim->readScript(filePath);
+  //camera->rotateX(-90); //Setting base rotation
   glClearColor(0.0, 0.0, 0.0, 1.0); // Set background (clear) color to black
   glEnable( GL_DEPTH_TEST );
   glutTimerFunc(0, Timer, 0);
@@ -62,14 +44,13 @@ void init(){
 void display(){
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  Vector eye(x,90,z);
-  //Vector center(0,20,20);
-  Vector center = s->getPoint(Tag::SACR);
-  Vector up( 0.0 , 1.0 , 0.0 );
-  Juan::setCamera( eye , center , up );
-  Juan::drawStage();
-  s->draw();
+  Vector sacr = sim->getPoint(Tag::SACR);
+  Vector eye = sacr.add(Vector(0,90,-4000));
+  camera->setPos(eye);
+  camera->lookAt(sacr);
+  camera->update();
+  //Juan::drawStage();
+  sim->draw();
 
   glutSwapBuffers();
 
@@ -79,7 +60,7 @@ void reshape( int width , int height ){
   glViewport(0, 0, width, height);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(60.0f, (GLfloat)width/(GLfloat)height, 1.0f, 1000.0f);
+  gluPerspective(60.0f, (GLfloat)width/(GLfloat)height, 1.0f, 3000.0f);
   glMatrixMode(GL_MODELVIEW);
 }
 

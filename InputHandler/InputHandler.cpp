@@ -1,13 +1,29 @@
 #include "InputHandler.h"
 
-InputHandler::InputHandler ( FaeTheFair *fae ){
+InputHandler::InputHandler ( FaeTheFair *fae , CameraHandler *camera ){
   this->fae = fae;
+  this->camera = camera;
 }
 
 InputHandler::~InputHandler (){}
 
 void InputHandler::onKeyPress( unsigned char key , int x , int y ){
   switch (key) {
+    case 'w': case 'W':
+      this->camera->rotateUp();
+    break;
+    case 's': case 'S':
+      this->camera->rotateDown();
+    break;
+    case 'a': case 'A':
+      this->camera->rotateLeft();
+    break;
+    case 'd': case 'D':
+      this->camera->rotateRight();
+    break;
+    case 't': case 'T':
+      this->camera->resetRotation();
+    break;
     case ' ':
       this->fae->toggleMovement();
     break;

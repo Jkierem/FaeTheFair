@@ -31,6 +31,8 @@ public:
   Vector3D<T> cross( Vector3D<T> b );
   Vector3D<T> normalize();
   Vector3D<T> add( Vector3D<T> b);
+  Vector3D<T> mult(float n);
+  Vector3D<T> mult(Vector3D<T> b);
   std::string toString();
 };
 

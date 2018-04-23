@@ -67,3 +67,12 @@ std::string Vector3D<T>::toString(){
   ss >> xs >> ys >> zs;
   return "[" + xs + " , " + ys + " , " + zs + "]";
 }
+
+template <class T>
+Vector3D<T> Vector3D<T>::mult(float n){
+  return Vector3D<T>( this->x * n , this->y * n , this->z * n );
+}
+template <class T>
+Vector3D<T> Vector3D<T>::mult(Vector3D<T> b){
+  return Vector3D<T>(this->x * b.getX() , this->y * b.getY() , this->z * b.getZ());
+}
