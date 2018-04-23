@@ -31,9 +31,11 @@ void Juan::rotateZ( float angle ){
   Juan::rotate( angle , Vector(0.0f , 0.0f , 1.0f) );
 }
 
-void Juan::setCamera( Vector eye , Vector center , Vector up ){
+void Juan::setCamera( Vector eye , Vector center , Vector up , bool identity ){
   glMatrixMode( GL_MODELVIEW );
-  glLoadIdentity();
+  if(identity){
+    glLoadIdentity();
+  }
   gluLookAt( eye.getX() , eye.getY() , eye.getZ() ,
              center.getX(), center.getY() , center.getZ() ,
              up.getX() , up.getY() , up.getZ() );
@@ -117,7 +119,8 @@ void Juan::drawSolidOctahedron( Vector scale , Vector translation , Vector rotat
 void Juan::drawSegment( Vector start , Vector end , bool inclusive ){
 
   glColor3f( 0.5 , 0.5 , 0.5 );
-  Juan::drawSolidCylinder( Juan::RADIUS , start , end , false );
+  Juan::drawLine( start , end );
+  //Juan::drawSolidCylinder( Juan::RADIUS , start , end , false );
 
   glColor3f(0.3,0.3,0.7);
   Juan::drawSolidSphere( Juan::RADIUS , start );
@@ -195,5 +198,6 @@ void Juan::drawStage(){
   Juan::drawSolidCylinder(radius, Vector(xRight,yDown,zFar) , Vector(xRight,yUp,zFar) );
 
 }
+
 
 //------------- end of Utility-----------//

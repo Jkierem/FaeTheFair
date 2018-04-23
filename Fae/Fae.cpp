@@ -7,6 +7,7 @@ FaeTheFair::FaeTheFair( float ratio ){
   this->moving = false;
   this->angle = 0.0f;
   this->ratio = ratio;
+  this->loop = false;
 }
 
 FaeTheFair::~FaeTheFair (){}
@@ -79,7 +80,11 @@ void FaeTheFair::nextFrame(){
   if( this->currentFrame < this->script.size() ){
     this->move( this->script[this->currentFrame] );
   }else{
-    this->moving = false;
+    if( this->loop ){
+      this->currentFrame = -1;
+    }else{
+      this->moving = false;
+    }
   }
 }
 
@@ -275,6 +280,10 @@ std::string FaeTheFair::getPosFromIndex(int i){
     case Tag::RTOE : return "RTOE";
     default : return "UNKOWN";
   }
+}
+
+void FaeTheFair::toggleLoop(){
+  this->loop = !this->loop;
 }
 
 //------------- End Fae      -----------//
