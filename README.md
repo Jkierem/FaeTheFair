@@ -20,10 +20,13 @@
 - [X] Adjust Camera to show figure correctly
 - [ ] Adjust Body and Legs scale
 - [X] Implement User interaction
-- [ ] Remove global variables from main.cpp
+- [X] Remove global variables from main.cpp
 - [ ] Implement union with OpenCSG to use in segments
 - [ ] Implement right click menu.
 - [ ] Fix Cylinder function.
+- [X] Add configurations
+- [ ] Draw Stage (properly)
+- [ ] Draw Body (properly)
 
 ## User Interaction:
 

@@ -11,6 +11,7 @@
 
 #include "../Vector3D/Vector3D.h"
 #include "../Juan/Juan.h"
+#include "../config/config.h"
 
 typedef std::vector<Vector> Position;
 typedef std::vector<Position> MovementScript;
@@ -51,9 +52,12 @@ private:
   bool loop;
   float frameRate;
   int setting;
+  bool debug;
 
 public:
+  FaeTheFair();
   FaeTheFair( float ratio=1.0f );
+  FaeTheFair( config::SimConfig config );
   virtual ~FaeTheFair ();
 
   void setRatio( float ratio );
@@ -64,6 +68,7 @@ public:
   void nextFrame();
   void drawUpperBody();
   void draw();
+  void drawAxis();
   bool isMoving();
   bool toggleMovement();
   void restart();

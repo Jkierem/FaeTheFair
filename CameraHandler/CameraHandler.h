@@ -3,6 +3,7 @@
 
 #include "../Juan/Juan.h"
 #include "../Vector3D/Vector3D.h"
+#include "../config/config.h"
 
 class CameraHandler {
 private:
@@ -16,11 +17,13 @@ private:
   Vector defaultRot;
   float angle;
   float panning;
+  bool debug;
 
 public:
   CameraHandler ();
   CameraHandler ( Vector defaultRot );
   CameraHandler ( Vector defaultRot , Vector defaultPan );
+  CameraHandler ( config::CameraConfig config );
   virtual ~CameraHandler ();
 
   void setRelativeEye( Vector eye );
@@ -51,6 +54,8 @@ public:
   void resetPanning();
   void setCurrentRotationAsDefault();
   void setCurrentPanningAsDefault();
+
+  void drawPanning();
 };
 
 typedef CameraHandler Camera;

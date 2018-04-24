@@ -16,9 +16,11 @@ class InputHandler {
 private:
   FaeTheFair *fae;
   CameraHandler *camera;
+  bool debug;
+  bool verbose;
 
 public:
-  InputHandler ( FaeTheFair *fae , CameraHandler *camera);
+  InputHandler ( FaeTheFair *fae , CameraHandler *camera, bool debug=false);
   virtual ~InputHandler ();
 
   bool onKeyPress( unsigned char key , int x , int y );
