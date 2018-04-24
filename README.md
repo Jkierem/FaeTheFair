@@ -27,7 +27,7 @@
 - [ ] Draw Body (properly)
 - [ ] Implement right click menu.
 - [ ] Implement union with OpenCSG to use in segments
-~~- [ ] Gain sentience and build using 3D printer~~
+- [ ] ~~Gain sentience and build using 3D printer~~
 
 ## User Interaction:
 
