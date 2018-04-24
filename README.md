@@ -18,15 +18,15 @@
 - [X] Implement rotating octahedron
 - [X] Adjust perspective to be able to fit entire figure
 - [X] Adjust Camera to show figure correctly
-- [ ] Adjust Body and Legs scale
 - [X] Implement User interaction
 - [X] Remove global variables from main.cpp
-- [ ] Implement union with OpenCSG to use in segments
-- [ ] Implement right click menu.
-- [ ] Fix Cylinder function.
 - [X] Add configurations
+- [ ] Fix Cylinder function.
+- [ ] Adjust Body and Legs scale
 - [ ] Draw Stage (properly)
 - [ ] Draw Body (properly)
+- [ ] Implement right click menu.
+- [ ] Implement union with OpenCSG to use in segments
 
 ## User Interaction:
 
