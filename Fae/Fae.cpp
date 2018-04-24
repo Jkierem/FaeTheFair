@@ -1,6 +1,7 @@
 #include "Fae.h"
 
 //------------- Fae the Fair ------------//
+FaeTheFair::FaeTheFair(){}
 
 FaeTheFair::FaeTheFair( float ratio ){
   this->currentFrame = 0;
@@ -8,6 +9,20 @@ FaeTheFair::FaeTheFair( float ratio ){
   this->angle = 0.0f;
   this->ratio = ratio;
   this->loop = false;
+  this->frameRate = 1000/30;
+  this->setting = 1;
+  this->debug = false;
+}
+
+FaeTheFair::FaeTheFair( config::SimConfig config ){
+  this->currentFrame = config.currentFrame;
+  this->moving = config.moving;
+  this->angle = config.angle;
+  this->ratio = config.ratio;
+  this->loop = config.loop;
+  this->frameRate = config.frameRate;
+  this->setting = config.setting;
+  this->debug = config.debug;
 }
 
 FaeTheFair::~FaeTheFair (){}
@@ -142,6 +157,22 @@ void FaeTheFair::draw(){
   Juan::drawSegment( this->rkne , this->rtib );
   Juan::drawSegment( this->rtib , this->rank );
   Juan::drawSegment( this->rank , this->rtoe , true );
+
+  if( this->debug ){
+    this->drawAxis();
+  }
+}
+
+void FaeTheFair::drawAxis(){
+  Vector i(300,0,0);
+  Vector j(0,300,0);
+  Vector k(0,0,300);
+  glColor3f(1,0,0);
+  Juan::drawLine(this->sacr, this->sacr.add(i));
+  glColor3f(0,1,0);
+  Juan::drawLine(this->sacr, this->sacr.add(j));
+  glColor3f(0,0,1);
+  Juan::drawLine(this->sacr, this->sacr.add(k));
 }
 
 bool FaeTheFair::isMoving(){
@@ -159,6 +190,10 @@ void FaeTheFair::restart(){
 
 bool FaeTheFair::hasEnded(){
   return !(this->currentFrame < this->script.size());
+}
+
+float FaeTheFair::getTimeout(){
+  return this->frameRate;
 }
 
 bool FaeTheFair::checkPreScript( MovementScript preScript ){
@@ -284,6 +319,14 @@ std::string FaeTheFair::getPosFromIndex(int i){
 
 void FaeTheFair::toggleLoop(){
   this->loop = !this->loop;
+}
+
+void FaeTheFair::cycleFrameRate(){
+  this->setting++;
+  this->setting = this->setting % 3;
+  int p = 1;
+  for( int i = 0 ; i < this->setting ; i++){ p *= 2; }
+  this->frameRate = 1000/(15 * p);
 }
 
 //------------- End Fae      -----------//

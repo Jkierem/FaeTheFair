@@ -22,6 +22,7 @@ CameraHandler::CameraHandler ( Vector defaultRot ){
   this->defaultPan = Vector(0,0,0);
   this->angle = 5.0f;
   this->panning = 30.0f;
+  this->debug = false;
 }
 
 CameraHandler::CameraHandler ( Vector defaultRot , Vector defaultPan ){
@@ -34,6 +35,20 @@ CameraHandler::CameraHandler ( Vector defaultRot , Vector defaultPan ){
   this->defaultPan = defaultPan;
   this->angle = 5.0f;
   this->panning = 30.0f;
+  this->debug = false;
+}
+
+CameraHandler::CameraHandler ( config::CameraConfig config ){
+  this->relativeEye = config.relativeEye;
+  this->center = config.center;
+  this->up = config.up;
+  this->rotation = config.rotation;
+  this->defaultRot = config.defaultRotation;
+  this->pan = config.pan;
+  this->defaultPan = config.defaultPan;
+  this->angle = config.angle;
+  this->panning = config.panning;
+  this->debug = config.debug;
 }
 
 CameraHandler::~CameraHandler (){}
@@ -60,6 +75,9 @@ void CameraHandler::update(){
   Juan::rotate(this->rotation);
   Juan::translate(this->center.mult(-1));
   Juan::translate(this->pan);
+  if( this->debug ){
+    this->drawPanning();
+  }
 }
 
 void CameraHandler::panUp(){
@@ -126,4 +144,19 @@ void CameraHandler::setCurrentRotationAsDefault(){
 
 void CameraHandler::setCurrentPanningAsDefault(){
   this->defaultPan = this->pan;
+}
+
+void CameraHandler::drawPanning(){
+  Vector o = this->center.add(Vector(-300,-300,-300));
+  Vector i(this->pan.getX(),0,0);
+  Vector j(0,this->pan.getY(),0);
+  Vector k(0,0,this->pan.getZ());
+  glColor3f(1,0,1);
+  Juan::drawLine(o, o.add(this->pan) );
+  glColor3f(1,0,0);
+  Juan::drawLine(o, o.add(i) );
+  glColor3f(0,1,0);
+  Juan::drawLine(o, o.add(j) );
+  glColor3f(0,0,1);
+  Juan::drawLine(o, o.add(k) );
 }

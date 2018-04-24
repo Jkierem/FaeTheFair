@@ -11,6 +11,7 @@
 
 #include "../Vector3D/Vector3D.h"
 #include "../Juan/Juan.h"
+#include "../config/config.h"
 
 typedef std::vector<Vector> Position;
 typedef std::vector<Position> MovementScript;
@@ -45,15 +46,18 @@ private:
 
   MovementScript script;
   int currentFrame;
-  bool moving; //Para futuro control de pausa
-               //y reanudación del movimiento
-
+  bool moving;
   float angle;
   float ratio;
   bool loop;
+  float frameRate;
+  int setting;
+  bool debug;
 
 public:
+  FaeTheFair();
   FaeTheFair( float ratio=1.0f );
+  FaeTheFair( config::SimConfig config );
   virtual ~FaeTheFair ();
 
   void setRatio( float ratio );
@@ -64,10 +68,12 @@ public:
   void nextFrame();
   void drawUpperBody();
   void draw();
+  void drawAxis();
   bool isMoving();
   bool toggleMovement();
   void restart();
   bool hasEnded();
+  float getTimeout();
   bool checkPreScript( MovementScript preScript );
   MovementScript processPreScript( MovementScript preScript );
   Vector getPoint( Tag name );
@@ -78,6 +84,7 @@ public:
   void printScript();
   std::string getPosFromIndex(int i);
   void toggleLoop();
+  void cycleFrameRate();
 };
 
 

@@ -7,33 +7,25 @@
 #include "./Fae/Fae.h"
 #include "./CameraHandler/CameraHandler.h"
 #include "./InputHandler/InputHandler.h"
+#include "./config/config.h"
 
-FaeTheFair *sim = new FaeTheFair();
-Camera *camera = new Camera(Vector(-90,0,0));
-Input *input = new Input(sim,camera);
+config::SimConfig simConfig = config::getSimConfig();
+config::CameraConfig camConfig = config::getCameraConfig();
 
-int timeout = 1000/30;
-
-std::string filePath="./res/inputFile.in";
-
-float x = -80;
-float z = -60;
-float dz = 1.0f;
-float dx = 1.0f;
-bool zMove = true;
+FaeTheFair *sim = new FaeTheFair(simConfig);
+Camera *camera = new Camera(camConfig);
+Input *input = new Input(sim,camera,simConfig.inputDebug);
 
 void Timer( int i ){
   if( sim->isMoving() ){
     sim->nextFrame();
   }
   glutPostRedisplay();
-  glutTimerFunc( timeout, Timer, 0);
+  glutTimerFunc( sim->getTimeout(), Timer, 0);
 }
 
 void init(){
-
-  sim->readScript(filePath);
-  //camera->rotateX(-90); //Setting base rotation
+  sim->readScript(simConfig.filePath);
   glClearColor(0.0, 0.0, 0.0, 1.0); // Set background (clear) color to black
   glEnable( GL_DEPTH_TEST );
   glutTimerFunc(0, Timer, 0);
@@ -57,7 +49,7 @@ void reshape( int width , int height ){
   glViewport(0, 0, width, height);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(60.0f, (GLfloat)width/(GLfloat)height, 1.0f, 5000.0f);
+  gluPerspective(60.0f, (GLfloat)width/(GLfloat)height, 1.0f, 6000.0f);
   glMatrixMode(GL_MODELVIEW);
 }
 

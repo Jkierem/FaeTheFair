@@ -18,12 +18,15 @@
 - [X] Implement rotating octahedron
 - [X] Adjust perspective to be able to fit entire figure
 - [X] Adjust Camera to show figure correctly
-- [ ] Adjust Body and Legs scale
 - [X] Implement User interaction
-- [ ] Remove global variables from main.cpp
-- [ ] Implement union with OpenCSG to use in segments
-- [ ] Implement right click menu.
+- [X] Remove global variables from main.cpp
+- [X] Add configurations
 - [ ] Fix Cylinder function.
+- [ ] Adjust Body and Legs scale
+- [ ] Draw Stage (properly)
+- [ ] Draw Body (properly)
+- [ ] Implement right click menu.
+- [ ] Implement union with OpenCSG to use in segments
 
 ## User Interaction:
 
@@ -42,4 +45,5 @@
 -  **O key**: save current rotation as default rotation.
 -  **P Key**: save current panning as default panning.
 -  **K Key**: toggle simulation loop.
+-  **F Key**: cycle frame rates. They are 15, 30 and 60 fps. The default is 30 fps.
 -  **ESC Key**: exit program.

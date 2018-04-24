@@ -1,8 +1,12 @@
 #include "InputHandler.h"
 
-InputHandler::InputHandler ( FaeTheFair *fae , CameraHandler *camera ){
+InputHandler::InputHandler ( FaeTheFair *fae , CameraHandler *camera , bool debug){
   this->fae = fae;
   this->camera = camera;
+  this->debug = debug;
+  if( debug ){
+    std::cout << "Debugger mode is ON" << std::endl;
+  }
 }
 
 InputHandler::~InputHandler (){}
@@ -10,6 +14,9 @@ InputHandler::~InputHandler (){}
 bool InputHandler::onKeyPress( unsigned char key , int x , int y ){
   std::string file;
   bool good = true;
+  if( this->debug ){
+    std::cout << "Received from keyboard: "<< key << std::endl;
+  }
   switch (key) {
     case 'w': case 'W':
       this->camera->rotateXPositive();
@@ -37,6 +44,9 @@ bool InputHandler::onKeyPress( unsigned char key , int x , int y ){
     break;
     case ' ':
       this->fae->toggleMovement();
+    break;
+    case 'f': case 'F':
+      this->fae->cycleFrameRate();
     break;
     case 'k': case 'K':
       this->fae->toggleLoop();
@@ -66,13 +76,18 @@ bool InputHandler::onKeyPress( unsigned char key , int x , int y ){
       }
     break;
     default:
+    if( this->debug ){
       std::cout << "Unkown key: "<< key << " = " << int(key) <<std::endl;
+    }
     break;
   }
   return good;
 }
 
 void InputHandler::onSpecialKeyPress( int key , int x , int y ){
+  if( this->verbose ){
+    std::cout << "Received from keyboard: "<< key;
+  }
   switch (key) {
     case GLUT_KEY_UP:
       this->camera->panUp();
@@ -87,7 +102,9 @@ void InputHandler::onSpecialKeyPress( int key , int x , int y ){
       this->camera->panRight();
     break;
     default:
+    if( this->debug ){
       std::cout << "Unkown special key: "<< key << std::endl;
+    }
     break;
   }
 }
