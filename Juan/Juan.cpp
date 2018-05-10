@@ -65,16 +65,7 @@ void Juan::drawSolidCylinder( float srad , float erad , Vector start , Vector en
   Vector z(0,0,1);
   Vector rAxis = z.cross(dir);
   float height = dir.magnitude();
-  float angle = 180.0 / 3.14159 * atan( rAxis.magnitude()/z.dot(dir) ) ;
-
-  if( rAxis.magnitude() == 0.0 && angle == 0){
-    Vector nDir = dir.normalize();
-    Vector addDirZ = nDir.add(z);
-    if( addDirZ.magnitude() == 0 ){
-      rAxis = Vector(0,1,0);
-      angle = 180;
-    }
-  }
+  float angle = (180.0 / 3.14159) * (acos( z.dot(dir) / height )) ;
 
   glPushMatrix();
 
@@ -120,7 +111,7 @@ void Juan::drawSegment( Vector start , Vector end , bool inclusive ){
 
   glColor3f( 0.5 , 0.5 , 0.5 );
   Juan::drawLine( start , end );
-  //Juan::drawSolidCylinder( Juan::RADIUS , start , end , false );
+  Juan::drawSolidCylinder( Juan::RADIUS , start , end , false );
 
   glColor3f(0.3,0.3,0.7);
   Juan::drawSolidSphere( Juan::RADIUS , start );
