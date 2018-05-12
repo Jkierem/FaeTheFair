@@ -12,7 +12,8 @@
 #include "../Vector3D/Vector3D.h"
 
 namespace Juan {
-  const float RADIUS = 10;
+  const float RADIUS = 50;
+  const float JOINT_RATIO = 1.20;
   //mascaras
   void translate( Vector t );
 

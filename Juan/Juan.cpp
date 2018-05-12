@@ -110,14 +110,13 @@ void Juan::drawSolidOctahedron( Vector scale , Vector translation , Vector rotat
 void Juan::drawSegment( Vector start , Vector end , bool inclusive ){
 
   glColor3f( 0.5 , 0.5 , 0.5 );
-  Juan::drawLine( start , end );
   Juan::drawSolidCylinder( Juan::RADIUS , start , end , false );
 
   glColor3f(0.3,0.3,0.7);
-  Juan::drawSolidSphere( Juan::RADIUS , start );
+  Juan::drawSolidSphere( Juan::RADIUS*Juan::JOINT_RATIO , start );
 
   if( inclusive ){
-    Juan::drawSolidSphere( Juan::RADIUS , end );
+    Juan::drawSolidSphere( Juan::RADIUS*Juan::JOINT_RATIO , end );
   }
 
 }
