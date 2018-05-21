@@ -189,5 +189,69 @@ void Juan::drawStage(){
 
 }
 
+void Juan::setMaterialAmbient( Vector value , GLenum face ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = 1.0f;
+  glMaterialfv( face , GL_AMBIENT , color );
+}
+
+void Juan::setMaterialDiffuse( Vector value , float alpha , GLenum face ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = alpha;
+  glMaterialfv( face , GL_DIFFUSE , color );
+}
+
+void Juan::setMaterialSpecular( Vector value , GLenum face ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = 1.0f;
+  glMaterialfv( face , GL_SPECULAR , color );
+}
+
+void Juan::setLightAmbient( GLenum light , Vector value , float alpha ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = alpha;
+  glLightfv(light , GL_AMBIENT , color );
+}
+
+void Juan::setLightDiffuse( GLenum light , Vector value , float alpha ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = alpha;
+  glLightfv(light , GL_DIFFUSE , color );
+}
+
+void Juan::setLightSpecular( GLenum light , Vector value , float alpha ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = alpha;
+  glLightfv(light , GL_SPECULAR , color );
+}
+
+
+void Juan::setLightPosition( GLenum light , Vector value , float type ){
+  GLfloat pos[4];
+  pos[0] = value.getX();
+  pos[1] = value.getY();
+  pos[2] = value.getZ();
+  pos[3] = type;
+  glLightfv(light , GL_POSITION , pos );
+}
+
 
 //------------- end of Utility-----------//

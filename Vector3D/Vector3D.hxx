@@ -119,6 +119,11 @@ std::string Vector3D<T>::toString(){
 }
 
 template <class T>
+bool Vector3D<T>::equals( Vector3D<T> v ){
+  return this->x == v.x && this->y == v.y && this->z == v.z;
+}
+
+template <class T>
 float Vector3D<T>::toRadians(float degrees){
   return degrees * M_PI / 180;
 }
