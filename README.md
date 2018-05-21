@@ -21,12 +21,12 @@
 - [X] Implement User interaction
 - [X] Remove global variables from main.cpp
 - [X] Add configurations
-- [ ] Fix Cylinder function.
+- [X] Fix Cylinder function.
 - [ ] Adjust Body and Legs scale
 - [ ] Draw Stage (properly)
 - [ ] Draw Body (properly)
 - [ ] Implement right click menu.
-- [ ] Implement union with OpenCSG to use in segments
+- [ ] ~~Implement union with OpenCSG to use in segments~~
 - [ ] ~~Gain sentience and build using 3D printer~~
 
 ## User Interaction:
@@ -48,4 +48,3 @@
 -  **K Key**: toggle simulation loop.
 -  **F Key**: cycle frame rates. They are 15, 30 and 60 fps. The default is 30 fps.
 -  **ESC Key**: exit program.
-

@@ -2,19 +2,21 @@
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 
-#include "./Juan/Juan.h"
-#include "./Vector3D/Vector3D.h"
-#include "./Fae/Fae.h"
-#include "./CameraHandler/CameraHandler.h"
-#include "./InputHandler/InputHandler.h"
 #include "./config/config.h"
+#include "./CameraHandler/CameraHandler.h"
+#include "./Fae/Fae.h"
+#include "./InputHandler/InputHandler.h"
+#include "./Juan/Juan.h"
+#include "./LightHandler/LightHandler.h"
+#include "./Vector3D/Vector3D.h"
 
 config::SimConfig simConfig = config::getSimConfig();
 config::CameraConfig camConfig = config::getCameraConfig();
 
-FaeTheFair *sim = new FaeTheFair(simConfig);
 Camera *camera = new Camera(camConfig);
+FaeTheFair *sim = new FaeTheFair(simConfig);
 Input *input = new Input(sim,camera,simConfig.inputDebug);
+Light *light = new Light();
 
 void Timer( int i ){
   if( sim->isMoving() ){
@@ -26,6 +28,12 @@ void Timer( int i ){
 
 void init(){
   sim->readScript(simConfig.filePath);
+
+  light->enableLighting();
+  light->enableLight(0);
+  light->setPos(0, Vector(-1,0,1));
+  light->refresh();
+
   glClearColor(0.0, 0.0, 0.0, 1.0); // Set background (clear) color to black
   glEnable( GL_DEPTH_TEST );
   glutTimerFunc(0, Timer, 0);

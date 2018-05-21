@@ -12,7 +12,8 @@
 #include "../Vector3D/Vector3D.h"
 
 namespace Juan {
-  const float RADIUS = 10;
+  const float RADIUS = 50;
+  const float JOINT_RATIO = 1.20;
   //mascaras
   void translate( Vector t );
 
@@ -37,8 +38,15 @@ namespace Juan {
   void drawSegment( Vector start , Vector end , bool inclusive=false );
   void drawStage();
 
-  float toRadians(float degrees);
-  float toDegrees(float radians);
+  void setMaterialAmbient( Vector value , GLenum face=GL_FRONT );
+  void setMaterialDiffuse( Vector value , float alpha=1.0f , GLenum face=GL_FRONT );
+  void setMaterialSpecular( Vector value , GLenum face=GL_FRONT );
+
+  void setLightAmbient( GLenum light , Vector value , float alpha=1.0f);
+  void setLightDiffuse( GLenum light , Vector value , float alpha=1.0f);
+  void setLightSpecular( GLenum light , Vector value , float alpha=1.0f);
+
+  void setLightPosition( GLenum light , Vector value , float type );
 
 } /* Juan */
 
