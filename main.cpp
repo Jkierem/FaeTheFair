@@ -31,7 +31,6 @@ void init(){
 
   light->enableLighting();
   light->enableLight(0);
-  light->setPos(0, Vector(-1,0,1));
   light->refresh();
 
   glClearColor(0.0, 0.0, 0.0, 1.0); // Set background (clear) color to black

@@ -60,10 +60,10 @@ bool InputHandler::onKeyPress( unsigned char key , int x , int y ){
     case 'r': case 'R':
       this->fae->restart();
     break;
-    case '-': //SHIFT
+    case '-':
       this->camera->panFar();
     break;
-    case '.': //CTRL
+    case '.': 
       this->camera->panNear();
     break;
     case 27:
