@@ -44,11 +44,13 @@ public:
   Vector getAmbientColor( int light );
   Vector getDiffuseColor( int light );
   Vector getSpecColor( int light );
+  LType getType( int light );
 
   void setPos( int light , Vector pos );
   void setAmbientColor( int light , Vector color , float alpha );
   void setDiffuseColor( int light , Vector color , float alpha );
   void setSpecColor( int light , Vector color , float alpha );
+  void setType( int light , LType type );
 
   void enableLighting();
   void disableLighting();

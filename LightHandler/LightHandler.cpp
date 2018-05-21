@@ -53,6 +53,7 @@ Utils::Light LightHandler::createLight( int i ){
   l.color_spec = Vector(1,1,1);
   l.alphas = Vector(1,1,1);
   l.mappedLight = getLightMapping(i);
+  l.enabled = false;
   l.type = DISTANTE;
   return l;
 }
@@ -65,6 +66,7 @@ Utils::Light LightHandler::createLight(){
   l.color_spec = Vector(1,1,1);
   l.alphas = Vector(1,1,1);
   l.mappedLight = GL_LIGHT0;
+  l.enabled = false;
   l.type = DISTANTE;
   return l;
 }
@@ -96,6 +98,9 @@ Vector LightHandler::getSpecColor( int light ){
   return this->lights[light].color_spec;
 }
 
+LType LightHandler::getType( int light ){
+  return this->lights[light].type;
+}
 
 void LightHandler::setPos( int light , Vector pos ){
   this->lights[light].pos = pos;
@@ -116,6 +121,9 @@ void LightHandler::setSpecColor( int light , Vector color , float alpha ){
   this->lights[light].alphas.setZ(alpha);
 }
 
+void LightHandler::setType( int light , LType type ){
+  this->lights[light].type = type;
+}
 
 void LightHandler::enableLighting(){
   glEnable(GL_LIGHTING);
