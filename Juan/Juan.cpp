@@ -110,9 +110,11 @@ void Juan::drawSolidOctahedron( Vector scale , Vector translation , Vector rotat
 void Juan::drawSegment( Vector start , Vector end , bool inclusive ){
 
   glColor3f( 0.5 , 0.5 , 0.5 );
+  Juan::setMaterialDiffuse( Vector(0.5,0.5,0.5) );
   Juan::drawSolidCylinder( Juan::RADIUS , start , end , false );
 
   glColor3f(0.3,0.3,0.7);
+  Juan::setMaterialDiffuse( Vector(0.3,0.3,0.7) );
   Juan::drawSolidSphere( Juan::RADIUS*Juan::JOINT_RATIO , start );
 
   if( inclusive ){
