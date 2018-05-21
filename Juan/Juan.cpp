@@ -65,16 +65,7 @@ void Juan::drawSolidCylinder( float srad , float erad , Vector start , Vector en
   Vector z(0,0,1);
   Vector rAxis = z.cross(dir);
   float height = dir.magnitude();
-  float angle = 180.0 / 3.14159 * atan( rAxis.magnitude()/z.dot(dir) ) ;
-
-  if( rAxis.magnitude() == 0.0 && angle == 0){
-    Vector nDir = dir.normalize();
-    Vector addDirZ = nDir.add(z);
-    if( addDirZ.magnitude() == 0 ){
-      rAxis = Vector(0,1,0);
-      angle = 180;
-    }
-  }
+  float angle = (180.0 / 3.14159) * (acos( z.dot(dir) / height )) ;
 
   glPushMatrix();
 
@@ -119,14 +110,15 @@ void Juan::drawSolidOctahedron( Vector scale , Vector translation , Vector rotat
 void Juan::drawSegment( Vector start , Vector end , bool inclusive ){
 
   glColor3f( 0.5 , 0.5 , 0.5 );
-  Juan::drawLine( start , end );
-  //Juan::drawSolidCylinder( Juan::RADIUS , start , end , false );
+  Juan::setMaterialDiffuse( Vector(0.5,0.5,0.5) );
+  Juan::drawSolidCylinder( Juan::RADIUS , start , end , false );
 
   glColor3f(0.3,0.3,0.7);
-  Juan::drawSolidSphere( Juan::RADIUS , start );
+  Juan::setMaterialDiffuse( Vector(0.3,0.3,0.7) );
+  Juan::drawSolidSphere( Juan::RADIUS*Juan::JOINT_RATIO , start );
 
   if( inclusive ){
-    Juan::drawSolidSphere( Juan::RADIUS , end );
+    Juan::drawSolidSphere( Juan::RADIUS*Juan::JOINT_RATIO , end );
   }
 
 }
@@ -197,6 +189,70 @@ void Juan::drawStage(){
   Juan::drawSolidCylinder(radius, Vector(xRight,yDown,zNear) , Vector(xRight,yUp,zNear) );
   Juan::drawSolidCylinder(radius, Vector(xRight,yDown,zFar) , Vector(xRight,yUp,zFar) );
 
+}
+
+void Juan::setMaterialAmbient( Vector value , GLenum face ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = 1.0f;
+  glMaterialfv( face , GL_AMBIENT , color );
+}
+
+void Juan::setMaterialDiffuse( Vector value , float alpha , GLenum face ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = alpha;
+  glMaterialfv( face , GL_DIFFUSE , color );
+}
+
+void Juan::setMaterialSpecular( Vector value , GLenum face ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = 1.0f;
+  glMaterialfv( face , GL_SPECULAR , color );
+}
+
+void Juan::setLightAmbient( GLenum light , Vector value , float alpha ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = alpha;
+  glLightfv(light , GL_AMBIENT , color );
+}
+
+void Juan::setLightDiffuse( GLenum light , Vector value , float alpha ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = alpha;
+  glLightfv(light , GL_DIFFUSE , color );
+}
+
+void Juan::setLightSpecular( GLenum light , Vector value , float alpha ){
+  GLfloat color[4];
+  color[0] = value.getX();
+  color[1] = value.getY();
+  color[2] = value.getZ();
+  color[3] = alpha;
+  glLightfv(light , GL_SPECULAR , color );
+}
+
+
+void Juan::setLightPosition( GLenum light , Vector value , float type ){
+  GLfloat pos[4];
+  pos[0] = value.getX();
+  pos[1] = value.getY();
+  pos[2] = value.getZ();
+  pos[3] = type;
+  glLightfv(light , GL_POSITION , pos );
 }
 
 
