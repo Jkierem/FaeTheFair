@@ -39,6 +39,7 @@ public:
   Vector3D<T> rotateZ(float angle);
   std::string toString();
   bool equals( Vector3D<T> v );
+  T* toArray();
 
   static float toRadians( float degrees );
   static float toDegrees( float radians );

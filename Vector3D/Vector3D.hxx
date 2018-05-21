@@ -124,6 +124,15 @@ bool Vector3D<T>::equals( Vector3D<T> v ){
 }
 
 template <class T>
+T* Vector3D<T>::toArray(){
+  T* e = new T[3];
+  e[0] = this->x;
+  e[1] = this->y;
+  e[2] = this->z;
+  return e;
+}
+
+template <class T>
 float Vector3D<T>::toRadians(float degrees){
   return degrees * M_PI / 180;
 }
