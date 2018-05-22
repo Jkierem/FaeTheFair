@@ -104,38 +104,67 @@ void FaeTheFair::nextFrame(){
 }
 
 void FaeTheFair::drawUpperBody(){
+  Vector bodyBlue(0.1,0.1,0.5);
+  Vector headBrownish(1.0,0.6,0.2);
+  Vector simGreen(0.0,1.0,0.0);
 
-  glColor3f(0.1,0.1,0.5);
-  Vector coneTop( this->sacr.getX() , this->sacr.getY() + 3 , this->sacr.getZ());
-  Juan::drawSolidCone( 3, coneTop , this->sacr );
-  Vector cTop( coneTop.getX() , coneTop.getY() + 10 , coneTop.getZ() );
-  Juan::drawSolidCylinder(3 , 4, coneTop , cTop ) ;
+  Vector right = this->rasi.vectorSub(this->sacr);
+  Vector left  = this->lasi.vectorSub(this->sacr);
 
-  Vector neckish = Vector( cTop.getX() , cTop.getY() + 2 , cTop.getZ() );
-  Juan::drawSolidCone( 4 , cTop, neckish );
+  Vector frontDir = right.add(left).normalize();
+  Vector baseDir = right.cross(left);
+  baseDir = baseDir.normalize();
+  Vector relativeRight = frontDir.cross(baseDir);
+  Vector relativeLeft  = baseDir.cross(frontDir);
 
-  glColor3f(1.0,0.6,0.2);
-  neckish.setY( neckish.getY() + 2.5);
-  Juan::drawSolidSphere(3, neckish);
+  Vector bodyDir = baseDir.normalize().mult(Juan::RADIUS);
+  Vector hipEnd = this->sacr.add(bodyDir).add(baseDir.mult(100));
+  Juan::setMaterialDiffuse( bodyBlue );
+  Juan::drawSolidCylinder( Juan::RADIUS , Juan::RADIUS * 5 ,
+    this->sacr.add(bodyDir) , hipEnd,
+    false
+  );
+  Vector torsoEnd = hipEnd.add( baseDir.mult(500) ) ;
+  Juan::drawSolidCylinder(
+    Juan::RADIUS * 5 , Juan::RADIUS * 6,
+    hipEnd , torsoEnd, false
+  );
 
-  glColor3f(0.0,1.0,0.0);
-  Vector scale(1,2,1);
-  neckish.setY( neckish.getY() + 6);
-  Vector rot(0,this->angle,0);
-  this->angle += this->ratio;
-  Juan::drawSolidOctahedron(scale,neckish,rot);
+  Vector neckEnd = torsoEnd.add( baseDir.mult(100) );
+  Juan::drawSolidCone(
+    Juan::RADIUS * 6 , torsoEnd , neckEnd
+  );
 
-  Vector lshoulder( cTop.getX() + 4 , cTop.getY() , cTop.getZ());
-  Vector lelbow( lshoulder.getX() + 2 , lshoulder.getY() - 5 , lshoulder.getZ() );
-  Juan::drawSegment( lshoulder , lelbow);
-  Vector lhand(lelbow.getX() , lelbow.getY() - 3 , lelbow.getZ() + 6);
-  Juan::drawSegment(lelbow,lhand,true);
+  Vector headCenter = neckEnd.add(baseDir.mult(Juan::RADIUS * 2.3));
+  Juan::setMaterialDiffuse(headBrownish);
+  Juan::drawSolidSphere( Juan::RADIUS*3, headCenter);
 
-  Vector rshoulder( cTop.getX() - 4 , cTop.getY() , cTop.getZ());
-  Vector relbow( rshoulder.getX() -2 , rshoulder.getY() - 5 , rshoulder.getZ() );
-  Juan::drawSegment( rshoulder , relbow);
-  Vector rhand(relbow.getX() , relbow.getY() - 3 , relbow.getZ() + 6);
-  Juan::drawSegment(relbow,rhand,true);
+  Vector leftShoulder  = torsoEnd.add(relativeLeft.mult(Juan::RADIUS*6));
+  Vector rightShoulder = torsoEnd.add(relativeRight.mult(Juan::RADIUS*6));
+
+  Vector down = baseDir.mult(-1);
+  Vector back = frontDir.mult(-1);
+  Vector leftElbow = leftShoulder
+        .add( down.mult(230) )
+        .add( relativeLeft.mult(70) )
+        .add( back.mult(80) );
+  Vector leftHand = leftElbow
+        .add( down.mult(200) )
+        .add( frontDir.mult(100) );
+
+  Vector rightElbow = rightShoulder
+        .add( down.mult(230) )
+        .add( relativeRight.mult(70) )
+        .add( back.mult(80) );
+  Vector rightHand = rightElbow
+        .add( down.mult(200) )
+        .add( frontDir.mult(100) );
+
+  Juan::drawSegment( leftShoulder , leftElbow );
+  Juan::drawSegment( leftElbow , leftHand , true );
+
+  Juan::drawSegment( rightShoulder , rightElbow );
+  Juan::drawSegment( rightElbow , rightHand , true );
 }
 
 void FaeTheFair::draw(){
@@ -212,7 +241,8 @@ bool FaeTheFair::checkPreScript( MovementScript preScript ){
   if( errors.size() > 0 ){
     std::cout << "Expected size: " << size << std::endl;
     for (size_t i = 0; i < preScript.size(); i++) {
-      std::cout << this->getPosFromIndex(i) << ": " << preScript[i].size() << std::endl;
+      std::cout << this->getPosFromIndex(i) << ": "
+      << preScript[i].size() << std::endl;
     }
     return false;
   }
