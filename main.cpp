@@ -45,7 +45,7 @@ void display(){
   camera->setRelativeEye(Vector(0,0,-3000));
   camera->lookAt(sacr);
   camera->update();
-  //Juan::drawStage();
+  
   sim->draw();
 
   glutSwapBuffers();

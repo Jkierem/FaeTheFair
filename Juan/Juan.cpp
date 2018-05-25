@@ -31,6 +31,10 @@ void Juan::rotateZ( float angle ){
   Juan::rotate( angle , Vector(0.0f , 0.0f , 1.0f) );
 }
 
+void Juan::vertex( Vector v ){
+  glVertex3f( v.getX() , v.getY() , v.getZ() );
+}
+
 void Juan::setCamera( Vector eye , Vector center , Vector up , bool identity ){
   glMatrixMode( GL_MODELVIEW );
   if(identity){
@@ -120,74 +124,6 @@ void Juan::drawSegment( Vector start , Vector end , bool inclusive ){
   if( inclusive ){
     Juan::drawSolidSphere( Juan::RADIUS*Juan::JOINT_RATIO , end );
   }
-
-}
-
-void Juan::drawStage(){
-
-  float xRight = 80;
-  float xLeft = -80;
-  float yUp = 70;
-  float yDown = 1;
-  float zFar = 160;
-  float zNear = -60;
-  float xMidRight = 10;
-  float xMidLeft = -10;
-  float radius = 4;
-
-  //Floor
-  glColor3f(1.0,1.0,1.0);
-  glBegin(GL_QUADS);
-  glVertex3f(xRight,yDown,zFar);
-  glVertex3f(xMidRight,yDown,zFar);
-  glVertex3f(xMidRight,yDown,zNear);
-  glVertex3f(xRight,yDown,zNear);
-
-  glVertex3f(xLeft,yDown,zFar);
-  glVertex3f(xMidLeft,yDown,zFar);
-  glVertex3f(xMidLeft,yDown,zNear);
-  glVertex3f(xLeft,yDown,zNear);
-
-  //Walls
-  glColor3f(0.9,0.9,0.9);
-
-  //Back Wall
-  glVertex3f(xLeft,yUp,zNear);
-  glVertex3f(xRight,yUp,zNear);
-  glVertex3f(xRight,yDown,zNear);
-  glVertex3f(xLeft,yDown,zNear);
-
-  //Right wall
-  glVertex3f(xLeft,yDown,zFar);
-  glVertex3f(xLeft,yDown,zNear);
-  glVertex3f(xLeft,yUp,zNear);
-  glVertex3f(xLeft,yUp,zFar);
-
-  //Front wall
-  glVertex3f(xRight,yDown,zFar);
-  glVertex3f(xRight,yUp,zFar);
-  glVertex3f(xLeft,yUp,zFar);
-  glVertex3f(xLeft,yDown,zFar);
-
-  //Left wall
-  glVertex3f(xRight,yDown,zFar);
-  glVertex3f(xRight,yUp,zFar);
-  glVertex3f(xRight,yUp,zNear);
-  glVertex3f(xRight,yDown,zNear);
-
-  //Carpet
-  glColor3f(1.0,0.0,0.0);
-  glVertex3f(xMidRight,yDown,zFar);
-  glVertex3f(xMidLeft,yDown,zFar);
-  glVertex3f(xMidLeft,yDown,zNear);
-  glVertex3f(xMidRight,yDown,zNear);
-  glEnd();
-
-  glColor3f( 0.3,0.3,0.3 );
-  Juan::drawSolidCylinder(radius, Vector(xLeft,yDown,zNear) , Vector(xLeft,yUp,zNear) );
-  Juan::drawSolidCylinder(radius, Vector(xLeft,yDown,zFar) , Vector(xLeft,yUp,zFar) );
-  Juan::drawSolidCylinder(radius, Vector(xRight,yDown,zNear) , Vector(xRight,yUp,zNear) );
-  Juan::drawSolidCylinder(radius, Vector(xRight,yDown,zFar) , Vector(xRight,yUp,zFar) );
 
 }
 

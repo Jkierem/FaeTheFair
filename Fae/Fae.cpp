@@ -90,6 +90,25 @@ void FaeTheFair::move( Position nextPos ){
 
 }
 
+int FaeTheFair::getTagIndex( Tag name ){
+  switch (name) {
+    case Tag::SACR : return 0;
+    case Tag::LASI : return 1;
+    case Tag::LTHI : return 2;
+    case Tag::LKNE : return 3;
+    case Tag::LTIB : return 4;
+    case Tag::LANK : return 5;
+    case Tag::LTOE : return 6;
+    case Tag::RASI : return 7;
+    case Tag::RTHI : return 8;
+    case Tag::RKNE : return 9;
+    case Tag::RTIB : return 10;
+    case Tag::RANK : return 11;
+    case Tag::RTOE : return 12;
+    default : throw std::logic_error("Tag does not exist.");
+  }
+}
+
 void FaeTheFair::nextFrame(){
   this->currentFrame++;
   if( this->currentFrame < this->script.size() ){
@@ -144,20 +163,21 @@ void FaeTheFair::drawUpperBody(){
 
   Vector down = baseDir.mult(-1);
   Vector back = frontDir.mult(-1);
+
   Vector leftElbow = leftShoulder
-        .add( down.mult(230) )
-        .add( relativeLeft.mult(70) )
+        .add( down.mult(260) )
+        .add( relativeLeft.mult(80) )
         .add( back.mult(80) );
   Vector leftHand = leftElbow
-        .add( down.mult(200) )
+        .add( down.mult(250) )
         .add( frontDir.mult(100) );
 
   Vector rightElbow = rightShoulder
-        .add( down.mult(230) )
-        .add( relativeRight.mult(70) )
+        .add( down.mult(260) )
+        .add( relativeRight.mult(80) )
         .add( back.mult(80) );
   Vector rightHand = rightElbow
-        .add( down.mult(200) )
+        .add( down.mult(250) )
         .add( frontDir.mult(100) );
 
   Juan::drawSegment( leftShoulder , leftElbow );
@@ -187,9 +207,38 @@ void FaeTheFair::draw(){
   Juan::drawSegment( this->rtib , this->rank );
   Juan::drawSegment( this->rank , this->rtoe , true );
 
+  this->drawStage();
+
   if( this->debug ){
     this->drawAxis();
   }
+}
+
+void FaeTheFair::drawStage(){
+  Position first = this->script[0];
+  Position last  = this->script[this->script.size()-1];
+
+  Vector iLeft  = first[getTagIndex(Tag::LTOE)];
+  Vector iRight = first[getTagIndex(Tag::RTOE)];
+
+  Vector lLeft  = last[getTagIndex(Tag::LTOE)];
+  Vector lRight = last[getTagIndex(Tag::RTOE)];
+
+  Vector a = lLeft.vectorSub( iLeft );
+  Vector b = iRight.vectorSub( iLeft );
+  Vector planeNorm = a.cross( b ).normalize().mult(Juan::RADIUS*Juan::JOINT_RATIO);
+
+  iLeft = iLeft.add(planeNorm);
+  lLeft = lLeft.add(planeNorm);
+  iRight = iRight.add(planeNorm);
+  lRight = lRight.add(planeNorm);
+
+  glBegin(GL_QUADS);
+    Juan::vertex( iLeft );
+    Juan::vertex( iRight );
+    Juan::vertex( lRight );
+    Juan::vertex( lLeft );
+  glEnd();
 }
 
 void FaeTheFair::drawAxis(){
