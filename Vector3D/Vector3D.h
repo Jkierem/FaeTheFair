@@ -27,7 +27,7 @@ public:
 
   Vector3D<T> vectorSub( Vector3D<T> b);
   float magnitude();
-  T dot( Vector3D<T> b );
+  double dot( Vector3D<T> b );
   Vector3D<T> cross( Vector3D<T> b );
   Vector3D<T> normalize();
   Vector3D<T> add( Vector3D<T> b);
@@ -39,6 +39,7 @@ public:
   Vector3D<T> rotateZ(float angle);
   std::string toString();
   bool equals( Vector3D<T> v );
+  T* toArray();
 
   static float toRadians( float degrees );
   static float toDegrees( float radians );

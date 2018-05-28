@@ -36,8 +36,8 @@ float Vector3D<T>::magnitude(){
 }
 
 template <class T>
-T Vector3D<T>::dot( Vector3D<T> b ){
-  return this->x*b.getX() + this->y*b.getY() + this->z*b.getZ();
+double Vector3D<T>::dot( Vector3D<T> b ){
+  return double(this->x*b.x + this->y*b.y + this->z*b.z);
 }
 
 template <class T>
@@ -121,6 +121,15 @@ std::string Vector3D<T>::toString(){
 template <class T>
 bool Vector3D<T>::equals( Vector3D<T> v ){
   return this->x == v.x && this->y == v.y && this->z == v.z;
+}
+
+template <class T>
+T* Vector3D<T>::toArray(){
+  T* e = new T[3];
+  e[0] = this->x;
+  e[1] = this->y;
+  e[2] = this->z;
+  return e;
 }
 
 template <class T>

@@ -26,12 +26,36 @@ void Timer( int i ){
   glutTimerFunc( sim->getTimeout(), Timer, 0);
 }
 
+void printInstructions(){
+
+  std::cout <<
+  "User Interaction: \n" <<
+  "  Space Bar: start, stop and resume the sim. The default state is stop\n" <<
+  "  R Key: restart sim.\n" <<
+  "  L Key: load a sim file using zenity*.\n" <<
+  "  W,S Keys: rotation on X axis.\n" <<
+  "  A,D Keys: rotation on Y axis.\n" <<
+  "  Q,E Keys: rotation on Z axis.\n" <<
+  "  Arrow keys: panning on XY plane.\n" <<
+  "  - Key: panning to positive Z plane.\n" <<
+  "  . Key: panning to negative Z plane.\n" <<
+  "  T Key: reset rotation to default rotation.\n" <<
+  "  Y Key: reset panning to default panning.\n" <<
+  "  O key: save current rotation as default rotation.\n" <<
+  "  P Key: save current panning as default panning.\n" <<
+  "  K Key: toggle simulation loop.\n" <<
+  "  F Key: cycle frame rates. They are 15, 30 and 60 fps. The default is 30 fps.\n" <<
+  "  ESC Key: exit program.\n"<<
+  "*Requires zenity and unix based os or else the program will crash. Files without the roper structure will also cause a crash."
+   << std::endl;
+}
+
 void init(){
+  printInstructions();
   sim->readScript(simConfig.filePath);
 
   light->enableLighting();
   light->enableLight(0);
-  light->setPos(0, Vector(-1,0,1));
   light->refresh();
 
   glClearColor(0.0, 0.0, 0.0, 1.0); // Set background (clear) color to black
@@ -46,7 +70,7 @@ void display(){
   camera->setRelativeEye(Vector(0,0,-3000));
   camera->lookAt(sacr);
   camera->update();
-  //Juan::drawStage();
+
   sim->draw();
 
   glutSwapBuffers();

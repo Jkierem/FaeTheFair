@@ -68,6 +68,7 @@ public:
   void nextFrame();
   void drawUpperBody();
   void draw();
+  void drawStage();
   void drawAxis();
   bool isMoving();
   bool toggleMovement();
@@ -78,6 +79,7 @@ public:
   MovementScript processPreScript( MovementScript preScript );
   Vector getPoint( Tag name );
   MovementScript fixPreScript( MovementScript preScript );
+  int getTagIndex( Tag name );
 
   // Debugging funks
   void checkFixedPreScript( MovementScript preScript );
