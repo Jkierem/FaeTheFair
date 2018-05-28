@@ -22,19 +22,19 @@
 - [X] Remove global variables from main.cpp
 - [X] Add configurations
 - [X] Fix Cylinder function.
-- [ ] Adjust Body and Legs scale
-- [ ] Draw Stage (properly)
-- [ ] Draw Body (properly)
-- [ ] Implement right click menu.
+- [X] Adjust Body and Legs scale
+- [X] Draw Stage (properly)
+- [X] Draw Body (properly)
+- [ ] ~~Implement right click menu.~~
 - [ ] ~~Implement union with OpenCSG to use in segments~~
 - [ ] ~~Gain sentience and build using 3D printer~~
 
 ## User Interaction:
 
    As of now the control of the program is limited to:
--  **Space Bar**: start, stop and resume the sim.
+-  **Space Bar**: start, stop and resume the sim. The default state is stop.
 -  **R Key**: restart sim.
--  **L Key**: load a sim file using zenity.
+-  **L Key**: load a sim file using zenity*.
 -  **W,S Keys**: rotation on X axis.
 -  **A,D Keys**: rotation on Y axis.
 -  **Q,E Keys**: rotation on Z axis.
@@ -45,6 +45,8 @@
 -  **Y Key**: reset panning to default panning.
 -  **O key**: save current rotation as default rotation.
 -  **P Key**: save current panning as default panning.
--  **K Key**: toggle simulation loop.
+-  **K Key**: toggle simulation loop. The default is false.
 -  **F Key**: cycle frame rates. They are 15, 30 and 60 fps. The default is 30 fps.
 -  **ESC Key**: exit program.
+
+*Requires zenity and unix based os or else the program will crash. Files without the roper structure will also cause a crash.
