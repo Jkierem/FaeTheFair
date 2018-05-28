@@ -158,6 +158,16 @@ void FaeTheFair::drawUpperBody(){
   Juan::setMaterialDiffuse(headBrownish);
   Juan::drawSolidSphere( Juan::RADIUS*3, headCenter);
 
+  Vector octCenter = headCenter.add( baseDir.mult(Juan::RADIUS*6) );
+  Vector octDims(Juan::RADIUS*2,Juan::RADIUS,Juan::RADIUS);
+  Vector octRot(0,90,0);
+  Juan::setMaterialDiffuse( simGreen );
+  Juan::setMaterialSpecular( simGreen );
+  Juan::setMaterialAmbient( simGreen );
+  Juan::drawSolidOctahedron( octDims , octCenter , octRot );
+  Juan::setMaterialAmbient();
+  Juan::setMaterialSpecular();
+
   Vector leftShoulder  = torsoEnd.add(relativeLeft.mult(Juan::RADIUS*6));
   Vector rightShoulder = torsoEnd.add(relativeRight.mult(Juan::RADIUS*6));
 
@@ -215,6 +225,8 @@ void FaeTheFair::draw(){
 }
 
 void FaeTheFair::drawStage(){
+  Vector carpetRed(1,0.0,0.0);
+
   Position first = this->script[0];
   Position last  = this->script[this->script.size()-1];
 
@@ -261,6 +273,8 @@ void FaeTheFair::drawStage(){
   lLeft = lLeft.add(frontDir.mult(100));
 
   Juan::setMaterialDiffuse( Vector(1,0,0) , 1.0f , GL_FRONT_AND_BACK);
+  Juan::setMaterialAmbient( carpetRed , GL_FRONT_AND_BACK);
+  //Juan::setMaterialSpecular( carpetRed , GL_FRONT_AND_BACK);
   glBegin(GL_TRIANGLES);
     Juan::vertex( iLeft );
     Juan::vertex( iRight );
@@ -270,6 +284,8 @@ void FaeTheFair::drawStage(){
     Juan::vertex( lLeft );
     Juan::vertex( lRight );
   glEnd();
+  Juan::setMaterialAmbient();
+  //Juan::setMaterialSpecular();
 }
 
 void FaeTheFair::drawAxis(){
