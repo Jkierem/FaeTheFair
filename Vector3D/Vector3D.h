@@ -27,7 +27,7 @@ public:
 
   Vector3D<T> vectorSub( Vector3D<T> b);
   float magnitude();
-  T dot( Vector3D<T> b );
+  double dot( Vector3D<T> b );
   Vector3D<T> cross( Vector3D<T> b );
   Vector3D<T> normalize();
   Vector3D<T> add( Vector3D<T> b);

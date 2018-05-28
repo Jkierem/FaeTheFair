@@ -36,8 +36,8 @@ float Vector3D<T>::magnitude(){
 }
 
 template <class T>
-T Vector3D<T>::dot( Vector3D<T> b ){
-  return this->x*b.getX() + this->y*b.getY() + this->z*b.getZ();
+double Vector3D<T>::dot( Vector3D<T> b ){
+  return double(this->x*b.x + this->y*b.y + this->z*b.z);
 }
 
 template <class T>

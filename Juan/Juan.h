@@ -25,6 +25,8 @@ namespace Juan {
   void rotateY( float angle );//rotation around Y
   void rotateZ( float angle );//rotation around Z
 
+  void vertex( Vector v );
+
   void setCamera( Vector eye , Vector center , Vector up , bool identity=true);
 
   //Figures
@@ -36,7 +38,7 @@ namespace Juan {
   void drawSolidOctahedron( Vector scale , Vector translation , Vector rotation);
 
   void drawSegment( Vector start , Vector end , bool inclusive=false );
-  void drawStage();
+  void setNormal( Vector normal );
 
   void setMaterialAmbient( Vector value , GLenum face=GL_FRONT );
   void setMaterialDiffuse( Vector value , float alpha=1.0f , GLenum face=GL_FRONT );
