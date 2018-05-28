@@ -127,6 +127,10 @@ void Juan::drawSegment( Vector start , Vector end , bool inclusive ){
 
 }
 
+void Juan::setNormal( Vector normal ){
+  glNormal3f(normal.getX(),normal.getY(),normal.getZ());
+}
+
 void Juan::setMaterialAmbient( Vector value , GLenum face ){
   GLfloat color[4];
   color[0] = value.getX();

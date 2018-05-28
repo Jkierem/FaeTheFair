@@ -233,11 +233,42 @@ void FaeTheFair::drawStage(){
   iRight = iRight.add(planeNorm);
   lRight = lRight.add(planeNorm);
 
-  glBegin(GL_QUADS);
+  Vector leftDir = lLeft.vectorSub(iLeft).normalize();
+  iLeft = iLeft.add( leftDir.mult(-500) );
+  lLeft = lLeft.add( leftDir.mult(500) );
+  Vector rightDir  = lRight.vectorSub(iRight).normalize();
+  Vector backDir = iLeft.vectorSub(iRight);
+  Vector frontDir = lLeft.vectorSub(lRight);
+
+
+
+  float dotprod = backDir.dot( rightDir );
+  Vector rightT = rightDir.mult(dotprod);
+  iRight = iRight.add(rightT);
+
+  dotprod = frontDir.dot( rightDir );
+  rightT = rightDir.mult(dotprod);
+
+  lRight = lRight.add( rightT );
+
+  backDir = iLeft.vectorSub(iRight).normalize();
+  frontDir = lLeft.vectorSub(lRight).normalize();
+
+  iRight = iRight.add(backDir.mult(-100));
+  iLeft = iLeft.add(backDir.mult(100));
+
+  lRight = lRight.add(frontDir.mult(-100));
+  lLeft = lLeft.add(frontDir.mult(100));
+
+  Juan::setMaterialDiffuse( Vector(1,0,0) , 1.0f , GL_FRONT_AND_BACK);
+  glBegin(GL_TRIANGLES);
     Juan::vertex( iLeft );
     Juan::vertex( iRight );
     Juan::vertex( lRight );
+
+    Juan::vertex( iLeft );
     Juan::vertex( lLeft );
+    Juan::vertex( lRight );
   glEnd();
 }
 

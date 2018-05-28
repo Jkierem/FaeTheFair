@@ -38,6 +38,7 @@ namespace Juan {
   void drawSolidOctahedron( Vector scale , Vector translation , Vector rotation);
 
   void drawSegment( Vector start , Vector end , bool inclusive=false );
+  void setNormal( Vector normal );
 
   void setMaterialAmbient( Vector value , GLenum face=GL_FRONT );
   void setMaterialDiffuse( Vector value , float alpha=1.0f , GLenum face=GL_FRONT );
