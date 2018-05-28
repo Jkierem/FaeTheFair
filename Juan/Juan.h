@@ -40,9 +40,9 @@ namespace Juan {
   void drawSegment( Vector start , Vector end , bool inclusive=false );
   void setNormal( Vector normal );
 
-  void setMaterialAmbient( Vector value , GLenum face=GL_FRONT );
-  void setMaterialDiffuse( Vector value , float alpha=1.0f , GLenum face=GL_FRONT );
-  void setMaterialSpecular( Vector value , GLenum face=GL_FRONT );
+  void setMaterialAmbient( Vector value=Vector(0.2, 0.2, 0.2) , GLenum face=GL_FRONT );
+  void setMaterialDiffuse( Vector value=Vector(0.8,0.8,0.8) , float alpha=1.0f , GLenum face=GL_FRONT );
+  void setMaterialSpecular( Vector value=Vector(0,0,0) , GLenum face=GL_FRONT );
 
   void setLightAmbient( GLenum light , Vector value , float alpha=1.0f);
   void setLightDiffuse( GLenum light , Vector value , float alpha=1.0f);
