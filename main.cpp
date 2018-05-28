@@ -46,7 +46,7 @@ void printInstructions(){
   "  K Key: toggle simulation loop.\n" <<
   "  F Key: cycle frame rates. They are 15, 30 and 60 fps. The default is 30 fps.\n" <<
   "  ESC Key: exit program.\n"<<
-  "*Requires zenity and unix based os or else the program will crash. Files without the roper structure will also cause a crash."
+  "*Requires zenity and unix based os or else the program will crash. Files without the proper structure will also cause a crash."
    << std::endl;
 }
 
