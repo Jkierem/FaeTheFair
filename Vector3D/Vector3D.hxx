@@ -31,12 +31,12 @@ Vector3D<T> Vector3D<T>::vectorSub( Vector3D<T> b){
 }
 
 template <class T>
-float Vector3D<T>::magnitude(){
+T Vector3D<T>::magnitude(){
   return sqrt(this->x*this->x + this->y*this->y + this->z*this->z);
 }
 
 template <class T>
-double Vector3D<T>::dot( Vector3D<T> b ){
+T Vector3D<T>::dot( Vector3D<T> b ){
   return double(this->x*b.x + this->y*b.y + this->z*b.z);
 }
 

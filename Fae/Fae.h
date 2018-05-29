@@ -69,7 +69,6 @@ public:
   void drawUpperBody();
   void draw();
   void drawStage();
-  void drawAxis();
   bool isMoving();
   bool toggleMovement();
   void restart();
@@ -80,13 +79,14 @@ public:
   Vector getPoint( Tag name );
   MovementScript fixPreScript( MovementScript preScript );
   int getTagIndex( Tag name );
-
-  // Debugging funks
-  void checkFixedPreScript( MovementScript preScript );
-  void printScript();
-  std::string getPosFromIndex(int i);
   void toggleLoop();
   void cycleFrameRate();
+  std::string getPosFromIndex(int i);
+
+  // Debugging funks
+  void drawAxis();
+  void checkFixedPreScript( MovementScript preScript );
+  void printScript();
 };
 
 
